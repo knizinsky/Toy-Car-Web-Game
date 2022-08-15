@@ -1,0 +1,126 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: rgb(253, 253, 253);
+	font-family: 'Silkscreen', cursive;
+}
+
+header{
+    .title{
+        font-size: 50px;
+        color: #545454;
+        text-align: center;
+    }
+}
+
+.game-area {
+    position: relative;
+	height: 500px;
+	width: 100%;
+	border: 5px solid #545454;
+    overflow: hidden;
+    
+    .ground{
+        position: absolute;
+        bottom: 0;
+        height: 75%;
+        width: 100%;
+    }
+
+    .sky{
+        height: 25%;
+        width: 100%;
+    
+        .cloud1{
+            position: absolute;
+            right: 100%;
+            margin-top: 15px;
+            height: 88px;
+            width: 192px;
+            background-image: url('../img/cloud.png');
+            animation: cloud1-animation 6s linear infinite;
+        }
+
+        .cloud2{
+            position: absolute;
+            right: 100%;
+            margin-top: 15px;
+            height: 88px;
+            width: 192px;
+            background-image: url('../img/cloud2.png');
+            animation: cloud2-animation 8s linear infinite;
+        }
+    }
+
+}
+
+.toy-car{
+    position: absolute;
+    left: 15px;
+    bottom: 63px;
+    height: 113px;
+    width: 217px;
+    background-image: url('../img/zabawka-autko.png');
+    z-index: 10;
+}
+
+.jump{
+    animation: jump .5s;
+}
+
+.rails{
+    position: absolute;
+    bottom: 50px;
+    height: 100px;
+    width: 110%;
+    background-image: url('../img/rails.png');
+    animation: rail-animation .2s infinite linear;
+}
+
+
+@keyframes rail-animation{
+    0%{
+        left: 0;
+    }
+    100%{
+        left: -60px;
+    }
+}
+
+@keyframes cloud1-animation{
+    0%{
+        right: -30%;
+    }
+
+    100%{
+        right: 100%;
+    }
+}
+
+@keyframes cloud2-animation{
+    0%{
+        right: -30%;
+    }
+
+    100%{
+        right: 100%;
+    }
+}
+
+@keyframes jump{
+    0%{
+        bottom: 63px;
+    }
+
+    50%{
+        bottom:163px;
+    }
+
+    100%{
+        bottom:63px;
+    }
+}
