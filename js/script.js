@@ -1,15 +1,35 @@
-const toyCar = document.querySelector('.toy-car');
+"use strict"
+import * as world from "./world.js";
+import * as player from "./player.js";
 
-function addJump() {
-	if (toyCar.classList != 'jump') {
-		toyCar.classList.add('jump');
+let inGame = false;
+let lastTime = 0;
+let delta;
+let startGameText = document.querySelector(".startGameText p");
+world.initialize();
+player.initialize();
 
-		setTimeout(function () {
-			toyCar.classList.remove('jump');
-		}, 500);
+window.addEventListener("keydown", updateInGameStatus);
+
+function mainLoop(timeStamp) {
+	delta = lastTime - timeStamp;
+	world.updateVariables(delta);
+	player.updateVariables(delta);
+	lastTime = timeStamp
+	if (player.isGameLost()){		
+		inGame = false;
+		startGameText.style.setProperty("display", "block")
+		world.reset();
+		player.reset();
+	}
+	window.requestAnimationFrame(mainLoop)
+}
+
+
+function updateInGameStatus(){
+	if (inGame !== true){
+		window.requestAnimationFrame(mainLoop);
+		startGameText.style.setProperty("display", "none");
+		inGame = true;
 	}
 }
-document.addEventListener('keydown', function() {
-	addJump();
-});
- 

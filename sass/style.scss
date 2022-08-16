@@ -17,7 +17,7 @@ header{
     }
 }
 
-.game-area {
+.world {
     position: relative;
 	height: 500px;
 	width: 100%;
@@ -58,19 +58,16 @@ header{
 
 }
 
-.toy-car{
+.player{
     position: absolute;
     left: 15px;
     bottom: 63px;
-    height: 113px;
+    height: 151px;
     width: 217px;
     background-image: url('../img/zabawka-autko.png');
     z-index: 10;
 }
 
-.jump{
-    animation: jump .5s;
-}
 
 .rails{
     position: absolute;
@@ -108,19 +105,5 @@ header{
 
     100%{
         right: 100%;
-    }
-}
-
-@keyframes jump{
-    0%{
-        bottom: 63px;
-    }
-
-    50%{
-        bottom:163px;
-    }
-
-    100%{
-        bottom:63px;
     }
 }

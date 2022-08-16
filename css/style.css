@@ -15,24 +15,24 @@ header .title {
   text-align: center;
 }
 
-.game-area {
+.world {
   position: relative;
   height: 500px;
   width: 100%;
   border: 5px solid #545454;
   overflow: hidden;
 }
-.game-area .ground {
+.world .ground {
   position: absolute;
   bottom: 0;
   height: 75%;
   width: 100%;
 }
-.game-area .sky {
+.world .sky {
   height: 25%;
   width: 100%;
 }
-.game-area .sky .cloud1 {
+.world .sky .cloud1 {
   position: absolute;
   right: 100%;
   margin-top: 15px;
@@ -42,7 +42,7 @@ header .title {
   -webkit-animation: cloud1-animation 6s linear infinite;
           animation: cloud1-animation 6s linear infinite;
 }
-.game-area .sky .cloud2 {
+.world .sky .cloud2 {
   position: absolute;
   right: 100%;
   margin-top: 15px;
@@ -53,11 +53,12 @@ header .title {
           animation: cloud2-animation 8s linear infinite;
 }
 
-.toy-car {
+.player {
+  --top: 0;
   position: absolute;
   left: 15px;
-  bottom: 63px;
-  height: 113px;
+  top: 150px;   /* (-20 <-> 15) would be great fo */
+  height: 151px;
   width: 217px;
   background-image: url("../img/zabawka-autko.png");
   z-index: 10;
@@ -69,32 +70,23 @@ header .title {
 }
 
 .rails {
+  --left: 0;
   position: absolute;
+  left: var(--left);
   bottom: 50px;
   height: 100px;
   width: 110%;
   background-image: url("../img/rails.png");
-  -webkit-animation: rail-animation 0.2s infinite linear;
-          animation: rail-animation 0.2s infinite linear;
 }
 
-@-webkit-keyframes rail-animation {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -60px;
-  }
+.startGameText p{
+  font-size: 60px;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  color: #545454;
 }
 
-@keyframes rail-animation {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -60px;
-  }
-}
 @-webkit-keyframes cloud1-animation {
   0% {
     right: -30%;
