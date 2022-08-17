@@ -5,13 +5,14 @@
 }
 
 body {
+  --gray: #545454;
   background-color: rgb(253, 253, 253);
   font-family: "Silkscreen", cursive;
 }
 
 header .title {
-  font-size: 50px;
-  color: #545454;
+  font-size: 32px;
+  color: var(--gray);
   text-align: center;
 }
 
@@ -29,22 +30,23 @@ header .title {
   position: relative;
   height: var(--height);
   width: var(--width);
-  border: 5px solid #545454;
+  border: 5px solid var(--gray);
   overflow: hidden;
 }
 
 .startGameText p {
-  font-size: 60px;
+  font-size: 14px;
   top: 50%;
   left: 50%;
   text-align: center;
-  color: #545454;
+  color: var(--gray);
 }
 
 .score {
   position: absolute;
   right: 4%;
   top: 2%;
+  color: var(--gray);
 }
 
 .endNote {
@@ -55,13 +57,67 @@ header .title {
   width: 70%;
   height: 40%;
   transform: translate(-50%, -50%);
-  background-color: #545454;
+  background-color: var(--gray);
   text-align: center;
-  font-size: 50px;
-
-  
+  font-size: 14px;
 }
 
-.endNote p{
+.endNote p {
   color: white;
 }
+
+@media (min-width: 576px) {
+  header .title {
+    font-size: 45px;
+  }
+  .startGameText p {
+    font-size: 22px;
+  }
+}
+@media (min-width: 768px) {
+  header .title {
+    font-size: 52px;
+  }
+  .startGameText p {
+    font-size: 28px;
+  }
+  .score {
+    font-size: 22px;
+  }
+}
+@media (min-width: 992px) {
+  header .title {
+    font-size: 58px;
+  }
+  .startGameText p {
+    font-size: 36px;
+  }
+  .score {
+    font-size: 25px;
+  }
+}
+@media (min-width: 1200px) {
+  header .title {
+    font-size: 63px;
+  }
+  .startGameText p {
+    font-size: 45px;
+  }
+  .score {
+    font-size: 29px;
+  }
+}
+@media (min-width: 1400px) {
+  header .title {
+    font-size: 63px;
+  }
+  .startGameText .start-text {
+    font-size: 45px;
+  }
+  .startGameText .end-text {
+    font-size: 54px;
+  }
+  .score {
+    font-size: 32px;
+  }
+}/*# sourceMappingURL=style.css.map */

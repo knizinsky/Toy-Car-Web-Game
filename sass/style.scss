@@ -5,105 +5,134 @@
 }
 
 body {
+	--gray: #545454;
 	background-color: rgb(253, 253, 253);
 	font-family: 'Silkscreen', cursive;
 }
 
-header{
-    .title{
-        font-size: 50px;
-        color: #545454;
-        text-align: center;
-    }
+header .title {
+	font-size: 32px;
+	color: var(--gray);
+	text-align: center;
+}
+
+.myCanvas {
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 .world {
-    position: relative;
-	height: 500px;
-	width: 100%;
-	border: 5px solid #545454;
-    overflow: hidden;
-    
-    .ground{
-        position: absolute;
-        bottom: 0;
-        height: 75%;
-        width: 100%;
-    }
-
-    .sky{
-        height: 25%;
-        width: 100%;
-    
-        .cloud1{
-            position: absolute;
-            right: 100%;
-            margin-top: 15px;
-            height: 88px;
-            width: 192px;
-            background-image: url('../img/cloud.png');
-            animation: cloud1-animation 6s linear infinite;
-        }
-
-        .cloud2{
-            position: absolute;
-            right: 100%;
-            margin-top: 15px;
-            height: 88px;
-            width: 192px;
-            background-image: url('../img/cloud2.png');
-            animation: cloud2-animation 8s linear infinite;
-        }
-    }
-
+	left: 50%;
+	transform: translate(-50%, 0);
+	--height: 600px;
+	--width: 1920px;
+	position: relative;
+	height: var(--height);
+	width: var(--width);
+	border: 5px solid var(--gray);
+	overflow: hidden;
 }
 
-.player{
-    position: absolute;
-    left: 15px;
-    bottom: 63px;
-    height: 151px;
-    width: 217px;
-    background-image: url('../img/zabawka-autko.png');
-    z-index: 10;
+.startGameText p {
+	font-size: 14px;
+	top: 50%;
+	left: 50%;
+	text-align: center;
+	color: var(--gray);
 }
 
-
-.rails{
-    position: absolute;
-    bottom: 50px;
-    height: 100px;
-    width: 110%;
-    background-image: url('../img/rails.png');
-    animation: rail-animation .2s infinite linear;
+.score {
+	position: absolute;
+	right: 4%;
+	top: 2%;
+	color: var(--gray);
 }
 
-
-@keyframes rail-animation{
-    0%{
-        left: 0;
-    }
-    100%{
-        left: -60px;
-    }
+.endNote {
+	position: absolute;
+	display: none;
+	left: 50%;
+	top: 50%;
+	width: 70%;
+	height: 40%;
+	transform: translate(-50%, -50%);
+	background-color: var(--gray);
+	text-align: center;
+	font-size: 14px;
 }
 
-@keyframes cloud1-animation{
-    0%{
-        right: -30%;
-    }
-
-    100%{
-        right: 100%;
-    }
+.endNote p {
+	color: white;
 }
 
-@keyframes cloud2-animation{
-    0%{
-        right: -30%;
-    }
+@media (min-width: 576px) {
+	header .title {
+		font-size: 45px;
+	}
 
-    100%{
-        right: 100%;
-    }
+	.startGameText p {
+		font-size: 22px;
+	}
+}
+
+@media (min-width: 768px) {
+	header .title {
+		font-size: 52px;
+	}
+
+	.startGameText p {
+		font-size: 28px;
+	}
+
+	.score {
+		font-size: 22px;
+	}
+}
+
+@media (min-width: 992px) {
+	header .title {
+		font-size: 58px;
+	}
+
+	.startGameText p {
+		font-size: 36px;
+	}
+
+	.score {
+		font-size: 25px;
+	}
+}
+
+@media (min-width: 1200px) {
+	header .title {
+		font-size: 63px;
+	}
+
+	.startGameText p {
+		font-size: 45px;
+	}
+
+	.score {
+		font-size: 29px;
+	}
+}
+
+@media (min-width: 1400px) {
+	header .title {
+		font-size: 63px;
+	}
+
+	.startGameText {
+		.start-text {
+			font-size: 45px;
+		}
+		.end-text {
+			font-size: 54px;
+		}
+	}
+
+	.score {
+		font-size: 32px;
+	}
 }
