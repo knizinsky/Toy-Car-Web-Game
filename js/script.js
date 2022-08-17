@@ -2,27 +2,39 @@
 import * as world from "./world.js";
 import * as player from "./player.js";
 
+const canvas = document.querySelector(".myCanvas");
+const ctx = canvas.getContext('2d');
 let inGame = false;
 let lastTime = 0;
 let delta;
-let startGameText = document.querySelector(".startGameText p");
+const startGameText = document.querySelector(".startGameText p");
+const endGameNote = document.querySelector(".endNote");
+// const endGameButton = document.querySelector(".endNote button")
+// endGameButton.addEventListener('onclick', resetGame)
+
+
 world.initialize();
-player.initialize();
+player.initialize()
 
 window.addEventListener("keydown", updateInGameStatus);
 
+
 function mainLoop(timeStamp) {
-	delta = lastTime - timeStamp;
+	delta = timeStamp - lastTime;
+	ctx.fillStyle = 'white';
+ 	ctx.fillRect(0, 0, world.worldSize[0], world.worldSize[1]);
 	world.updateVariables(delta);
 	player.updateVariables(delta);
 	lastTime = timeStamp
-	if (player.isGameLost()){		
-		inGame = false;
-		startGameText.style.setProperty("display", "block")
+	world.draw()
+	player.draw()
+	if (world.isGameLost()){		
+		window.alert("you lost the game")
 		world.reset();
 		player.reset();
+		// endGameNote.style.setProperty("display", "block");
 	}
-	window.requestAnimationFrame(mainLoop)
+	window.requestAnimationFrame(mainLoop);
 }
 
 
@@ -32,4 +44,10 @@ function updateInGameStatus(){
 		startGameText.style.setProperty("display", "none");
 		inGame = true;
 	}
+}
+
+function resetGame(){
+	world.reset();
+	player.reset();
+	endGameNote.style.setProperty("display", "none");
 }
