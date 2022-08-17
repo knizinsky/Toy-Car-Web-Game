@@ -15,71 +15,25 @@ header .title {
   text-align: center;
 }
 
-.world {
-  position: relative;
-  height: 500px;
+.myCanvas {
+  position: absolute;
   width: 100%;
+  height: 100%;
+}
+
+.world {
+  left: 50%;
+  transform: translate(-50%, 0);
+  --height: 600px;
+  --width: 1920px;
+  position: relative;
+  height: var(--height);
+  width: var(--width);
   border: 5px solid #545454;
   overflow: hidden;
 }
-.world .ground {
-  position: absolute;
-  bottom: 0;
-  height: 75%;
-  width: 100%;
-}
-.world .sky {
-  height: 25%;
-  width: 100%;
-}
-.world .sky .cloud1 {
-  position: absolute;
-  right: 100%;
-  margin-top: 15px;
-  height: 88px;
-  width: 192px;
-  background-image: url("../img/cloud.png");
-  -webkit-animation: cloud1-animation 6s linear infinite;
-          animation: cloud1-animation 6s linear infinite;
-}
-.world .sky .cloud2 {
-  position: absolute;
-  right: 100%;
-  margin-top: 15px;
-  height: 88px;
-  width: 192px;
-  background-image: url("../img/cloud2.png");
-  -webkit-animation: cloud2-animation 8s linear infinite;
-          animation: cloud2-animation 8s linear infinite;
-}
 
-.player {
-  --top: 0;
-  position: absolute;
-  left: 15px;
-  top: 150px;   /* (-20 <-> 15) would be great fo */
-  height: 151px;
-  width: 217px;
-  background-image: url("../img/zabawka-autko.png");
-  z-index: 10;
-}
-
-.jump {
-  -webkit-animation: jump 0.5s;
-          animation: jump 0.5s;
-}
-
-.rails {
-  --left: 0;
-  position: absolute;
-  left: var(--left);
-  bottom: 50px;
-  height: 100px;
-  width: 110%;
-  background-image: url("../img/rails.png");
-}
-
-.startGameText p{
+.startGameText p {
   font-size: 60px;
   top: 50%;
   left: 50%;
@@ -87,57 +41,16 @@ header .title {
   color: #545454;
 }
 
-@-webkit-keyframes cloud1-animation {
-  0% {
-    right: -30%;
-  }
-  100% {
-    right: 100%;
-  }
-}
-@keyframes cloud1-animation {
-  0% {
-    right: -30%;
-  }
-  100% {
-    right: 100%;
-  }
-}
-@-webkit-keyframes cloud2-animation {
-  0% {
-    right: -30%;
-  }
-  100% {
-    right: 100%;
-  }
-}
-@keyframes cloud2-animation {
-  0% {
-    right: -30%;
-  }
-  100% {
-    right: 100%;
-  }
-}
-@-webkit-keyframes jump {
-  0% {
-    bottom: 63px;
-  }
-  50% {
-    bottom: 163px;
-  }
-  100% {
-    bottom: 63px;
-  }
-}
-@keyframes jump {
-  0% {
-    bottom: 63px;
-  }
-  50% {
-    bottom: 163px;
-  }
-  100% {
-    bottom: 63px;
-  }
-}/*# sourceMappingURL=style.css.map */
+/* .endNote {
+  position: absolute;
+  display: none;
+  left: 50%;
+  top: 50%;
+  width: 70%;
+  height: 40%;
+  transform: translate(-50%, -50%);
+  background-color: #545454;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+} */
