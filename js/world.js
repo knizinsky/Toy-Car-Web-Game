@@ -1,7 +1,9 @@
 import * as player from "./player.js" 
 const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
-const title = document.querySelector('header .title')
+const title = document.querySelector('header .title');
+
+
 
 class cloudObject extends player.sprite{
     constructor(name) {
@@ -57,11 +59,11 @@ class railObject extends player.sprite{
 }
 
 
-const speedRandomMargin = 0.01
+const speedRandomMargin = 0.01;
 const groundLevel = 500;
 const skylevel = [20, 100]
 const origWorldSpeedRate = 0.4;
-let currWorldSpeedRate = origWorldSpeedRate;     //all variables are in  per milisecond units
+export let currWorldSpeedRate = origWorldSpeedRate;     //all variables are in  per milisecond units
 const speedIncrement = 0.00005;
 const randomRangeModifier = 0.005;
 const world = document.querySelector(".world");
@@ -103,30 +105,26 @@ export function initialize() {
         images[key] = new Image();
         images[key].src = cloudData[key][1];
     }
-
-
-
 }
 
 export function updateVariables(delta) {
     currWorldSpeedRate += speedIncrement;
-    // cloudDeltaRange[0] -= randomRangeModifier;
     cloudDeltaRange[1] -= randomRangeModifier;
-    // obsticleDeltaRange[0] -= randomRangeModifier;
     obsticleDeltaRange[1] -= randomRangeModifier;
 
     cloudDelta -= delta;
     if (cloudDelta <= 0){
-        addCloud()
+        addCloud();
     }
     obsticleDelta -= delta;
     if (obsticleDelta <= 0){
-        addObsticle()
+        addObsticle();
     }
 
-    moveRails(delta)
-    moveClouds(delta)
-    moveObsticles(delta)
+
+    moveRails(delta);
+    moveClouds(delta);
+    moveObsticles(delta);
 }
 
 export function draw(){
@@ -148,6 +146,7 @@ export function reset () {
     cloudDelta = myRandom(...cloudDeltaRange);
     currWorldSpeedRate = origWorldSpeedRate;
 
+
     clouds.clear();
     obsticles.clear();
 }
@@ -157,22 +156,22 @@ export function isGameLost() {
         return collideRect( [player.player.rect[0] + player.player.position[0], 
                 player.player.rect[1] + player.player.position[1], player.player.rect[2], player.player.rect[3]],
             [obsticle.position[0] + obsticle.rect[0], obsticle.position[1] + obsticle.rect[1],
-            obsticle.rect[2], obsticle.rect[3]])
+            obsticle.rect[2], obsticle.rect[3]]);
 
 }
 
 function addObsticle() {
     let number = myRandom(0, obsticleSpawnFreq[obsticleSpawnFreq.length-1][0]);
     let name = floorBinSearch(obsticleSpawnFreq, number, 0, obsticleSpawnFreq.length);
-    obsticles.add(new obsticleObject(name))
-    obsticleDelta = myRandom(...obsticleDeltaRange)
+    obsticles.add(new obsticleObject(name));
+    obsticleDelta = myRandom(...obsticleDeltaRange);
 }
 
 function addCloud() {
     let number = myRandom(0, cloudSpawnFreq[cloudSpawnFreq.length-1][0]);
     let name = floorBinSearch(cloudSpawnFreq, number, 0, cloudSpawnFreq.length);
-    clouds.add(new cloudObject(name))
-    cloudDelta = myRandom(...cloudDeltaRange)
+    clouds.add(new cloudObject(name));
+    cloudDelta = myRandom(...cloudDeltaRange);
     
 }
 
@@ -185,7 +184,7 @@ function moveRails(delta) {
 
 function moveClouds(delta) {
     for (let cloud of clouds){
-        cloud.updateVariables(delta)
+        cloud.updateVariables(delta);
         if (cloud.position[0] <= -cloud.frameWidth){
             clouds.delete(cloud);
         }
@@ -194,7 +193,7 @@ function moveClouds(delta) {
 
 function moveObsticles(delta) {
     for (let obsticle of obsticles){
-        obsticle.updateVariables(delta)
+        obsticle.updateVariables(delta);
         if (obsticle.position[0] <= -obsticle.frameWidth){
             obsticles.delete(obsticle);
         }
@@ -203,17 +202,17 @@ function moveObsticles(delta) {
 
 function resizeWindow(){
     let width;
-    let titleHeight = parseInt(getComputedStyle(title).getPropertyValue("height"))
+    let titleHeight = parseInt(getComputedStyle(title).getPropertyValue("height"));
     let dimRatio = worldSize[0] / worldSize[1];
     if (window.innerWidth / (window.innerHeight - titleHeight) > dimRatio){
         width = dimRatio * (window.innerHeight - titleHeight);
-        world.style.setProperty("--width", `${width}px`)
-        world.style.setProperty("--height", `${window.innerHeight - titleHeight}px`)
+        world.style.setProperty("--width", `${width}px`);
+        world.style.setProperty("--height", `${window.innerHeight - titleHeight}px`);
     }
     else{
         width = window.innerWidth;
-        world.style.setProperty("--width", `${width}px`)
-        world.style.setProperty("--height", `${1/dimRatio * window.innerWidth}px`)
+        world.style.setProperty("--width", `${width}px`);
+        world.style.setProperty("--height", `${1/dimRatio * window.innerWidth}px`);
     }
     currScale = width / worldSize[0];
 }
@@ -222,11 +221,11 @@ function collideRect(rect1, rect2){
     return rect1[0] < rect2[0] + rect2[2] &&
         rect1[0] + rect1[2] > rect2[0] &&
         rect1[1] < rect2[1] + rect2[3] &&
-        rect1[1] + rect1[3] > rect2[1]
+        rect1[1] + rect1[3] > rect2[1];
 }
 
 function myRandom(start, end){
-    return Math.floor(Math.random() * end) + start
+    return Math.floor(Math.random() * end) + start;
 }
 /**
  * @name myRandom
@@ -239,22 +238,21 @@ function myRandom(start, end){
 
 function floorBinSearch(seqence, number, start, end) {
     if (end - start > 1){
-        let pivot = Math.floor(start + end / 2)
+        let pivot = Math.floor(start + end / 2);
         if (number === seqence[pivot][0]){
-            return seqence[pivot][1]
+            return seqence[pivot][1];
         }
         else if (number < seqence[pivot][0]){
             
-            return floorBinSearch(seqence, number, start, pivot - 1)
+            return floorBinSearch(seqence, number, start, pivot - 1);
         }
         else{
             // if (seqence.length === pivot + 1 || seqence[pivot+1][0] > number){
             //     return seqence[pivot][1]
             // }
-            return floorBinSearch(seqence, number, pivot + 1, end)
+            return floorBinSearch(seqence, number, pivot + 1, end);
         }
     }
-    return seqence[start][1]
+    return seqence[start][1];
 }
-
 

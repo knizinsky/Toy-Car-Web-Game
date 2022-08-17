@@ -8,22 +8,22 @@ const maxJumpCount = 2;
 export function initialize() {
     document.addEventListener('keydown', (event) => {
         if (event.code === "Space"){
-            player.jump()
+            player.jump();
         }
     })
 }
 
 export function updateVariables(delta) {
-    player.updateVariables(delta)
+    player.updateVariables(delta);
 }
 
 export function draw(currScale){
-    player.draw(currScale)
+    player.draw(currScale);
 }
 
 
 export function reset () {
-    player.reset()
+    player.reset();
 }
 
 
@@ -58,7 +58,7 @@ export class sprite{
     draw() {
         ctx.drawImage(this.image, 0, 0, this.frameWidth, this.frameHeight,
             parseInt(this.position[0]), parseInt(this.position[1]), 
-            parseInt(this.frameWidth ), parseInt(this.frameHeight))
+            parseInt(this.frameWidth ), parseInt(this.frameHeight));
     }
 
 }
