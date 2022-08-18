@@ -68,7 +68,7 @@ const speedIncrement = 0.00005;
 const randomRangeModifier = 0.005;
 const world = document.querySelector(".world");
 export const worldSize = [1920, 600];
-export let currScale = 1;              // for placing and moving obejcts
+export let currScale = 1;                               // for placing and moving obejcts
 
 const obsticles = new Set();
 const clouds = new Set();           
