@@ -39,7 +39,7 @@ class obsticleObject extends player.sprite{
 
 class railObject extends player.sprite{
     constructor(){
-        super([0, 460], 198, 80, 1, 10, '../img/rails.png')
+        super([0, 460], 198, 80, 1, 10, "./img/rails.png")
     }
 
     updateVariables(delta){
@@ -78,15 +78,15 @@ const rails = new railObject();
 
 
 const cloudData = {}            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
-cloudData['cloud1'] = [0.3, '../img/cloud1.png', 192, 88, 1, 5];
-cloudData['cloud2'] = [0.2, '../img/cloud2.png', 192, 88, 1, 5];
+cloudData['cloud1'] = [0.3, "./img/cloud1.png", 192, 88, 1, 5];
+cloudData['cloud2'] = [0.2, "./img/cloud2.png", 192, 88, 1, 5];
 const cloudSpawnFreq = [[3, 'cloud1'], [8, 'cloud2']]
 const origCloudDeltaRange = [100, 5000]; 
 let cloudDeltaRange = [...origCloudDeltaRange];
 let cloudDelta = myRandom(...cloudDeltaRange);
 
 const obsticleData = {};        //collisionRect, imgSrc, imgWidth, imgHeight, frameCount, frameHold
-obsticleData['obsticle1'] = [[0, 0, 50, 100],'../img/obsticle1.png', 50, 100, 1, 5];
+obsticleData['obsticle1'] = [[0, 0, 50, 100],"./img/obsticle1.png", 50, 100, 1, 5];
 const obsticleSpawnFreq = [[4, 'obsticle1']]
 const origObsticleDeltaRange = [1000, 8000]; 
 let obsticleDeltaRange = [...origObsticleDeltaRange];
