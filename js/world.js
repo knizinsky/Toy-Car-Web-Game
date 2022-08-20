@@ -39,7 +39,7 @@ class obsticleObject extends player.sprite{
 
 class railObject extends player.sprite{
     constructor(){
-        super([0, 460], 198, 80, 1, 10, "./img/rails.png")
+        super([0, 460], 191, 80, 1, 10, "./img/rails3d.png")
     }
 
     updateVariables(delta){
