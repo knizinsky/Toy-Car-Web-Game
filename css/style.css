@@ -39,10 +39,14 @@ header .title {
   overflow: hidden;
 }
 
+.startGameText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
 .startGameText p {
   font-size: 14px;
-  top: 50%;
-  left: 50%;
   text-align: center;
   color: var(--gray);
 }
@@ -79,10 +83,13 @@ header .title {
   color: white;
 }
 
-.newGameButton {
+.start-text {
+  display: none;
+}
+
+.pixelButton {
   font-family: "Silkscreen", cursive;
   text-transform: uppercase;
-  font-size: 12px;
   padding: 0 15px;
   border-radius: 5px;
   border: 2px solid var(--darkGray);
@@ -93,6 +100,10 @@ header .title {
   transition-duration: 0.2s;
   -webkit-animation: vibrate-1 0.9s 0.2s linear infinite both;
           animation: vibrate-1 0.9s 0.2s linear infinite both;
+}
+
+.newGameButton {
+  font-size: 12px;
 }
 
 .newGameButton:hover {
@@ -144,6 +155,12 @@ header .title {
   }
 }
 @media (min-width: 992px) {
+  .start-text {
+    display: block;
+  }
+  .start-text-mobile {
+    display: none;
+  }
   header .title {
     font-size: 58px;
   }
