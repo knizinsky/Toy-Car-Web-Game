@@ -45,8 +45,8 @@ header .title {
 	height: 100%;
 
 	p {
-		font-size: 14px;
-		text-align: center;
+		// font-size: 14px;
+		// text-align: center;
 		color: var(--gray);
 	}
 }
@@ -87,6 +87,11 @@ header .title {
 	display: none;
 }
 
+.start-text-mobile {
+	font-size: 20px;
+}
+
+// mutual class for buttons
 .pixelButton {
 	font-family: 'Silkscreen', cursive;
 	text-transform: uppercase;
@@ -100,9 +105,11 @@ header .title {
 	animation: vibrate-1 0.9s 0.2s linear infinite both;
 }
 
+//button after losing
 .newGameButton {
 	font-size: 12px;
 	border: 1px solid var(--darkGray);
+	margin-top: 5px;
 }
 
 .newGameButton:hover {
@@ -112,19 +119,48 @@ header .title {
 	text-shadow: 0 0 1px rgb(60, 60, 60);
 }
 
+//inicial button
+// .start-button{
+//
+// }
+
 // media queries
 
 @media (min-width: 360px) {
 	.endNote {
 		height: 40%;
 	}
+
+	.start-button {
+		font-size: 20px;
+	}
+
+	.carEmoji {
+		font-size: 28px;
+	}
 }
 
 @media (min-width: 450px) {
+	.endNote {
+		height: 40%;
+
+		p{
+			font-size: 18px;
+		}
+	}
+
 	.newGameButton {
 		margin-top: 8px;
-		font-size: 12px;
+		font-size: 15px;
 		padding: 0 20px;
+	}
+
+	.start-button {
+		font-size: 25px;
+	}
+
+	.carEmoji {
+		font-size: 34px;
 	}
 }
 
@@ -143,6 +179,14 @@ header .title {
 		padding: 0 15px;
 		letter-spacing: -3px;
 		animation: vibrate-1 0.75s 0.2s linear infinite both;
+	}
+
+	.start-button {
+		font-size: 30px;
+	}
+
+	.carEmoji {
+		font-size: 40px;
 	}
 }
 
@@ -164,6 +208,14 @@ header .title {
 		font-size: 22px;
 		padding: 0 12px;
 		animation: vibrate-1 0.65s 0.2s linear infinite both;
+	}
+
+	.start-button {
+		font-size: 38px;
+	}
+
+	.carEmoji {
+		font-size: 48px;
 	}
 }
 
