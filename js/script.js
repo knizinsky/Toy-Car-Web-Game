@@ -53,7 +53,6 @@ function endGame(){
 	endNote.style.setProperty("display", "block");
 }
 
-
 function updateInGameStatus(){
 	if (inGame !== true){
 		startGameText.style.setProperty("display", "none");

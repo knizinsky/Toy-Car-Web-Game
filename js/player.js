@@ -1,3 +1,5 @@
+import { drawPolygon } from "./debug.js";
+
 const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
 const gravity = 0.03;
@@ -63,14 +65,13 @@ export class sprite{
             parseInt(this.position[0]), parseInt(this.position[1]), 
             parseInt(this.frameWidth ), parseInt(this.frameHeight));
     }
-
 }
 
 class playerObject extends sprite{
-    constructor(collisionRect, position, imgSrc, imgWidth, imgHeight, frameCount, frameHold){
+    constructor(collisionVertices, position, imgSrc, imgWidth, imgHeight, frameCount, frameHold){
         super(position, imgWidth, imgHeight, frameCount, frameHold, imgSrc);
         this.startPosition = [...position];
-        this.rect = collisionRect;
+        this.collisionVertices = collisionVertices
         this.yVelocity = 0; 
         this.jumpsLeft = maxJumpCount;
         this.jumping = false;
@@ -105,6 +106,12 @@ class playerObject extends sprite{
         this.jumpsLeft = maxJumpCount;
         this.jumping = false;
     }
+
+    // debug only
+    draw(){
+        super.draw();
+        drawPolygon(ctx, this.position, this.collisionVertices);
+    }
 }
 
-export const player = new playerObject([0, 0, 217, 151], [30, 380], "./img/zabawka-autko.png", 217, 151, 1, 5); 
+export const player = new playerObject([[0, 0], [0, 151], [217, 151], [217, 0]], [30, 380], "./img/zabawka-autko.png", 217, 151, 1, 5); 
