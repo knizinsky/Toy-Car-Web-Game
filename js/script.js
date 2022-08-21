@@ -16,7 +16,7 @@ const endNoteText = document.querySelector(".endNote p");
 const endGameButton = document.querySelector(".endNote button");
 const newGameButton = document.querySelector('.start-button');
 endGameButton.addEventListener('click', resetGame);
-newGameButton.addEventListener('click',updateInGameStatus);
+newGameButton.addEventListener('click', updateInGameStatus);
 
 world.initialize();
 player.initialize();
@@ -42,7 +42,6 @@ function mainLoop(timeStamp) {
 		window.requestAnimationFrame(mainLoop);
 	}
 }
-
 
 function updateInGameStatus(){
 	if (inGame !== true){
