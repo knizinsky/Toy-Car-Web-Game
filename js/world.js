@@ -37,8 +37,8 @@ class obsticleObject extends player.sprite{
 }
 
 class railObject extends player.sprite{
-    constructor(){
-        super([0, 460], 191, 80, 1, 10, "./img/rails3d.png")
+    constructor(collisionRect, position, imgSrc, imgWidth, imgHeight, frameCount, frameHold){
+        super(collisionRect, position, imgSrc, imgWidth, imgHeight, frameCount, frameHold)
     }
 
     updateVariables(delta){
@@ -73,7 +73,8 @@ const obsticles = new Set();
 const clouds = new Set();           
 const images = {}               // name : image
 
-const rails = new railObject();
+const rails = new railObject([0, 460], 191, 80, 1, 10, "./img/rails3d.png");
+const background = new railObject([0, 340], 1493, 259, 1, 10, "./img/background.png");
 
 
 const cloudData = {}            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
@@ -123,16 +124,18 @@ export function updateVariables(delta) {
     }
 
 
-    moveRails(delta);
+    moveRailObject(delta, rails);
+    moveRailObject(delta, background);
     moveClouds(delta);
     moveObsticles(delta);
 }
 
 export function draw(){
+    background.draw()
+    rails.draw()
     for (let cloud of clouds){
         cloud.draw();
     }
-    rails.draw()
     for (let obsticle of obsticles){
         obsticle.draw();
     }
@@ -176,10 +179,10 @@ function addCloud() {
     
 }
 
-function moveRails(delta) {
-    rails.position[0] -= currWorldSpeedRate * delta;
-    if (rails.position[0] <= -rails.frameWidth){
-        rails.position[0] += rails.frameWidth;
+function moveRailObject(delta, object) {
+    object.position[0] -= currWorldSpeedRate * delta;
+    if (object.position[0] <= -object.frameWidth){
+        object.position[0] += object.frameWidth;
     }
 }
 
