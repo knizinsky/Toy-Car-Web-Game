@@ -4,7 +4,6 @@ const ctx = canvas.getContext('2d');
 const title = document.querySelector('header .title');
 
 
-
 class cloudObject extends player.sprite{
     constructor(name) {
         super([worldSize[0] + cloudData[name][2], myRandom(...skylevel)],
@@ -60,7 +59,7 @@ class railObject extends player.sprite{
 
 
 const speedRandomMargin = 0.01;
-const groundLevel = 500;
+const groundLevel = 530;
 const skylevel = [20, 100]
 const origWorldSpeedRate = 0.4;
 export let currWorldSpeedRate = origWorldSpeedRate;     //all variables are in  per milisecond units
@@ -78,16 +77,18 @@ const rails = new railObject();
 
 
 const cloudData = {}            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
-cloudData['cloud1'] = [0.3, "./img/cloud1.png", 192, 88, 1, 5];
-cloudData['cloud2'] = [0.2, "./img/cloud2.png", 192, 88, 1, 5];
-const cloudSpawnFreq = [[3, 'cloud1'], [8, 'cloud2']]
-const origCloudDeltaRange = [100, 5000]; 
+cloudData['cloud0'] = [0.3, "./img/cloud1.png", 202, 103, 1, 5];
+cloudData['cloud1'] = [0.3, "./img/cloud1.png", 202, 103, 1, 5];
+cloudData['cloud2'] = [0.2, "./img/cloud2.png", 250, 107, 1, 5];
+const cloudSpawnFreq = [[3, 'cloud0'], [6, 'cloud1'], [10, 'cloud2']]
+const origCloudDeltaRange = [1000, 5000]; 
 let cloudDeltaRange = [...origCloudDeltaRange];
 let cloudDelta = myRandom(...cloudDeltaRange);
 
 const obsticleData = {};        //collisionRect, imgSrc, imgWidth, imgHeight, frameCount, frameHold
-obsticleData['obsticle1'] = [[0, 0, 50, 100],"./img/obsticle1.png", 50, 100, 1, 5];
-const obsticleSpawnFreq = [[4, 'obsticle1']]
+obsticleData['monkey'] = [[0, 0, 83, 136],"./img/monkey.png", 83, 136, 1, 60];
+obsticleData['suicider'] = [[0, 0, 93, 83],"./img/suicider.png", 93, 83, 1, 60];
+const obsticleSpawnFreq = [[5, 'monkey'], [10, 'suicider']]
 const origObsticleDeltaRange = [1000, 8000]; 
 let obsticleDeltaRange = [...origObsticleDeltaRange];
 let obsticleDelta = 500;
@@ -131,10 +132,10 @@ export function draw(){
     for (let cloud of clouds){
         cloud.draw();
     }
+    rails.draw()
     for (let obsticle of obsticles){
         obsticle.draw();
     }
-    rails.draw()
 }
 
 export function reset () {
@@ -162,14 +163,14 @@ export function isGameLost() {
 
 function addObsticle() {
     let number = myRandom(0, obsticleSpawnFreq[obsticleSpawnFreq.length-1][0]);
-    let name = floorBinSearch(obsticleSpawnFreq, number, 0, obsticleSpawnFreq.length);
+    let name = ceilBinSearch(obsticleSpawnFreq, number, 0, obsticleSpawnFreq.length);
     obsticles.add(new obsticleObject(name));
     obsticleDelta = myRandom(...obsticleDeltaRange);
 }
 
 function addCloud() {
     let number = myRandom(0, cloudSpawnFreq[cloudSpawnFreq.length-1][0]);
-    let name = floorBinSearch(cloudSpawnFreq, number, 0, cloudSpawnFreq.length);
+    let name = ceilBinSearch(cloudSpawnFreq, number, 0, cloudSpawnFreq.length);
     clouds.add(new cloudObject(name));
     cloudDelta = myRandom(...cloudDeltaRange);
     
@@ -236,21 +237,20 @@ function myRandom(start, end){
  * @returns {int} 
  */
 
-function floorBinSearch(seqence, number, start, end) {
+function ceilBinSearch(seqence, number, start, end) {
     if (end - start > 1){
         let pivot = Math.floor(start + end / 2);
         if (number === seqence[pivot][0]){
             return seqence[pivot][1];
         }
-        else if (number < seqence[pivot][0]){
-            
-            return floorBinSearch(seqence, number, start, pivot - 1);
+        else if (number > seqence[pivot][0]){
+            return ceilBinSearch(seqence, number, pivot + 1, end);
         }
         else{
-            // if (seqence.length === pivot + 1 || seqence[pivot+1][0] > number){
-            //     return seqence[pivot][1]
-            // }
-            return floorBinSearch(seqence, number, pivot + 1, end);
+            if (number > seqence[pivot - 1][0]){
+                return seqence[pivot][1];
+            }
+            return ceilBinSearch(seqence, number, start, pivot);
         }
     }
     return seqence[start][1];
