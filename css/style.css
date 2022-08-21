@@ -64,14 +64,14 @@ header .title {
   left: 50%;
   top: 50%;
   width: 70%;
-  height: 40%;
+  height: 50%;
   background-color: var(--gray);
   background: linear-gradient(180deg, rgb(107, 107, 107) 0%, var(--gray) 100%);
   text-align: center;
   font-size: 14px;
   border-radius: 5px;
   border: 1px solid var(--darkGray);
-  box-shadow: 0 0 3px black;
+  box-shadow: 0 0 2px rgb(20, 20, 20);
   -webkit-animation: endNoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
           animation: endNoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
 }
@@ -92,7 +92,6 @@ header .title {
   text-transform: uppercase;
   padding: 0 15px;
   border-radius: 5px;
-  border: 2px solid var(--darkGray);
   color: var(--darkGray);
   box-shadow: 0 0 5px #2b2b2b;
   letter-spacing: -2px;
@@ -104,6 +103,7 @@ header .title {
 
 .newGameButton {
   font-size: 12px;
+  border: 1px solid var(--darkGray);
 }
 
 .newGameButton:hover {
@@ -113,6 +113,11 @@ header .title {
   text-shadow: 0 0 1px rgb(60, 60, 60);
 }
 
+@media (min-width: 360px) {
+  .endNote {
+    height: 40%;
+  }
+}
 @media (min-width: 450px) {
   .newGameButton {
     margin-top: 8px;
@@ -174,6 +179,7 @@ header .title {
     margin-top: 20px;
     font-size: 25px;
     padding: 2px 12px;
+    border: 2px solid var(--darkGray);
   }
 }
 @media (min-width: 1200px) {
