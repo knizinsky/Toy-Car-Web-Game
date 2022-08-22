@@ -13,9 +13,7 @@ export function initialize() {
             player.jump();
         }
     })
-    document.addEventListener('touchstart', () => {
-            player.jump();
-    })
+    document.addEventListener('touchstart', player.jump)
 }
 
 export function updateVariables(delta) {
@@ -26,11 +24,9 @@ export function draw(currScale){
     player.draw(currScale);
 }
 
-
 export function reset () {
     player.reset();
 }
-
 
 export class sprite{
     constructor(position, imgWidth, imgHeight, frameCount, frameHold, imgSrc = null, img = null) {
