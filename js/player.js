@@ -13,7 +13,9 @@ export function initialize() {
             player.jump();
         }
     })
-    document.addEventListener('touchstart', player.jump)
+    document.addEventListener('touchstart', () => {
+            player.jump();
+    })
 }
 
 export function updateVariables(delta) {
