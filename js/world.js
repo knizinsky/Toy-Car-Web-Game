@@ -72,10 +72,10 @@ class railObject extends player.sprite{
 const speedRandomMargin = 0.01;
 const groundLevel = 530;
 const skylevel = [20, 60]
-const origWorldSpeedRate = 0.4;
+const origWorldSpeedRate = 0.55;
 export let currWorldSpeedRate = origWorldSpeedRate;     //all variables are in  per milisecond units
 const speedIncrement = 0.00005;
-const randomRangeModifier = 0.005;
+const randomRangeModifier = 0.06 ;
 const world = document.querySelector(".world");
 export const worldSize = [1920, 600];
 export let currScale = 1;                               // for placing and moving obejcts
@@ -107,13 +107,13 @@ let cloudDeltaRange = [...origCloudDeltaRange];
 let cloudDelta = myRandom(...cloudDeltaRange);
 
 const obsticleData = {};        //collisionRect, imgSrc, imgWidth, imgHeight, frameCount, frameHold
-obsticleData['monkey'] = [getRectVertices([0, 0, 151, 187]), "./img/monkey3.png", 151, 187, 1, 60];
-obsticleData['suicider'] = [getRectVertices([0, 0, 132, 110]), "./img/suicider3.png", 132, 110, 1, 60];
+obsticleData['monkey'] = [[[73, 12], [0, 117], [8, 180], [116, 180], [148, 156]], "./img/monkey3.png", 151, 187, 1, 60];
+obsticleData['suicider'] = [[[73, 23], [0, 82], [17, 107], [53, 106], [122, 42]], "./img/suicider3.png", 132, 110, 1, 60];
 const obsticleDrawOffset = {};
 obsticleDrawOffset['suicider'] = -13;
 obsticleDrawOffset['monkey'] = 0;
-const obsticleSpawnFreq = [[5, 'monkey'], [6, 'suicider']]  //[[5, 'monkey'], [10, 'suicider']]
-const origObsticleDeltaRange = [1000, 8000]; 
+const obsticleSpawnFreq = [[5, 'monkey'], [10, 'suicider']]
+const origObsticleDeltaRange = [1000, 5000]; 
 let obsticleDeltaRange = [...origObsticleDeltaRange];
 let obsticleDelta = 500;
 
@@ -134,8 +134,19 @@ export function initialize() {
 
 export function updateVariables(delta) {
     currWorldSpeedRate += speedIncrement;
-    cloudDeltaRange[1] -= randomRangeModifier;
-    obsticleDeltaRange[1] -= randomRangeModifier;
+    if (cloudDeltaRange[1] - cloudDeltaRange[0] < 200){
+        cloudDeltaRange[0] -= randomRangeModifier * delta / 10;
+    }
+    else{
+        cloudDeltaRange[1] -= randomRangeModifier * delta / 2;
+    }
+
+    if (obsticleDeltaRange[1] - obsticleDeltaRange[0] < 200){
+        obsticleDeltaRange[0] -= randomRangeModifier * delta / 5;
+    } 
+    else{
+        obsticleDeltaRange[1] -= randomRangeModifier * delta;
+    }
 
     cloudDelta -= delta;
     if (cloudDelta <= 0){

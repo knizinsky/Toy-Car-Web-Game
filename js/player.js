@@ -112,4 +112,4 @@ class playerObject extends sprite{
     }
 }
 
-export const player = new playerObject([[0, 0], [0, 151], [217, 151], [217, 0]], [30, 380], "./img/zabawka-autko.png", 217, 151, 1, 5); 
+export const player = new playerObject([[5, 140], [170, 140], [215, 100],  [215, 15]], [30, 380], "./img/zabawka-autko.png", 217, 151, 1, 5); 

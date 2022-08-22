@@ -26,25 +26,20 @@ window.addEventListener("keydown", updateInGameStatus);
 
 
 function mainLoop(timeStamp) {
-	delta = timeStamp - lastTime;
-	if (delta > delta_limit){
-		endGame();
+	delta = Math.min(timeStamp - lastTime, delta_limit);
+	lastTime = timeStamp;
+	ctx.fillStyle = 'white';
+		ctx.fillRect(0, 0, world.worldSize[0], world.worldSize[1]);
+	world.updateVariables(delta);
+	player.updateVariables(delta);
+	updateScore(delta);
+	world.draw();
+	player.draw();
+	if (world.isGameLost()){		
+		endGame()
 	}
 	else{
-		lastTime = timeStamp;
-		ctx.fillStyle = 'white';
-		 ctx.fillRect(0, 0, world.worldSize[0], world.worldSize[1]);
-		world.updateVariables(delta);
-		player.updateVariables(delta);
-		updateScore(delta);
-		world.draw();
-		player.draw();
-		if (world.isGameLost()){		
-			endGame()
-		}
-		else{
-			window.requestAnimationFrame(mainLoop);
-		}
+		window.requestAnimationFrame(mainLoop);
 	}
 }
 
