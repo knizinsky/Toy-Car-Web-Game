@@ -26,10 +26,11 @@ class cloudObject extends player.sprite{
 
 class obsticleObject extends player.sprite{
     constructor(name) {
-        super([worldSize[0] + obsticleData[name][2], groundLevel - obsticleData[name][3]],
+        let drawOffset = obsticleDrawOffset[name];
+        super([worldSize[0] + obsticleData[name][2], groundLevel - obsticleData[name][3] - drawOffset],
             obsticleData[name][2], obsticleData[name][3], obsticleData[name][4], obsticleData[name][5], 
             null, images[name])
-        this.collisionVertices = obsticleData[name][0]
+        this.collisionVertices = obsticleData[name][0];
     }
 
     updateVariables(delta){
@@ -40,7 +41,7 @@ class obsticleObject extends player.sprite{
 
     // debug only
     draw(){
-        super.draw();
+        super.draw(this.drawOffset);
         drawPolygon(ctx, this.position, this.collisionVertices);
     }
 }
@@ -70,7 +71,7 @@ class railObject extends player.sprite{
 
 const speedRandomMargin = 0.01;
 const groundLevel = 530;
-const skylevel = [20, 100]
+const skylevel = [20, 60]
 const origWorldSpeedRate = 0.4;
 export let currWorldSpeedRate = origWorldSpeedRate;     //all variables are in  per milisecond units
 const speedIncrement = 0.00005;
@@ -81,24 +82,36 @@ export let currScale = 1;                               // for placing and movin
 
 const obsticles = new Set();
 const clouds = new Set();           
-const images = {}               // name : image
+const images = {};               // name : image
 
 const rails = new railObject([0, 460], 191, 80, 1, 10, "./img/rails3d.png");
-const background = new railObject([0, 340], 1493, 259, 1, 10, "./img/background.png");
+const background = new railObject([0, 340], 4820, 262, 1, 10, "./img/background.png");
 
 
-const cloudData = {}            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
-cloudData['cloud0'] = [0.3, "./img/cloud1.png", 202, 103, 1, 5];
+const cloudData = {};            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
+cloudData['cloud0'] = [0.3, "./img/cloud0.png", 202, 103, 1, 5];
 cloudData['cloud1'] = [0.3, "./img/cloud1.png", 202, 103, 1, 5];
 cloudData['cloud2'] = [0.2, "./img/cloud2.png", 250, 107, 1, 5];
-const cloudSpawnFreq = [[3, 'cloud0'], [6, 'cloud1'], [10, 'cloud2']]
-const origCloudDeltaRange = [1000, 5000]; 
+cloudData['cloud3'] = [0.3, "./img/cloud3.png", 192, 88, 1, 5];
+cloudData['cloud4'] = [0.2, "./img/cloud4.png", 192, 88, 1, 5];
+cloudData['cloud5'] = [0.2, "./img/cloud5.png", 192, 109, 1, 5];
+cloudData['cloud6'] = [0.2, "./img/cloud6.png", 252, 119, 1, 5];
+cloudData['cloud7'] = [0.2, "./img/cloud7.png", 160, 67, 1, 5];
+cloudData['cloud8'] = [0.2, "./img/cloud8.png", 139, 63, 1, 5];
+
+// const cloudSpawnFreq = [[3, 'cloud0'], [6, 'cloud1'], [10, 'cloud2']];
+// const cloudSpawnFreq = [[3, 'cloud3'], [6, 'cloud4']];
+const cloudSpawnFreq = [[3, 'cloud5'], [6, 'cloud6'], [10, 'cloud7'], [14, 'cloud8']];
+const origCloudDeltaRange = [1500, 6000]; 
 let cloudDeltaRange = [...origCloudDeltaRange];
 let cloudDelta = myRandom(...cloudDeltaRange);
 
 const obsticleData = {};        //collisionRect, imgSrc, imgWidth, imgHeight, frameCount, frameHold
-obsticleData['monkey'] = [getRectVertices([0, 0, 83, 136]), "./img/monkey.png", 83, 136, 1, 60];
-obsticleData['suicider'] = [getRectVertices([0, 0, 93, 83]), "./img/suicider.png", 93, 83, 1, 60];
+obsticleData['monkey'] = [getRectVertices([0, 0, 83, 136]), "./img/monkey2.png", 83, 136, 1, 60];
+obsticleData['suicider'] = [getRectVertices([0, 0, 132, 110]), "./img/suicider2.png", 132, 110, 1, 60];
+const obsticleDrawOffset = {};
+obsticleDrawOffset['suicider'] = -13;
+obsticleDrawOffset['monkey'] = 0;
 const obsticleSpawnFreq = [[5, 'monkey'], [10, 'suicider']]
 const origObsticleDeltaRange = [1000, 8000]; 
 let obsticleDeltaRange = [...origObsticleDeltaRange];
@@ -106,7 +119,7 @@ let obsticleDelta = 500;
 
 
 export function initialize() {
-    resizeWindow()
+    resizeWindow();
     window.addEventListener("resize", resizeWindow)
 
     for (let key in obsticleData) {         // filling up images
