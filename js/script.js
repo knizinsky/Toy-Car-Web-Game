@@ -28,7 +28,7 @@ window.addEventListener("keydown", updateInGameStatus);
 function mainLoop(timeStamp) {
 	delta = timeStamp - lastTime;
 	if (delta > delta_limit){
-		endGame()
+		endGame();
 	}
 	else{
 		lastTime = timeStamp;
