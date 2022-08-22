@@ -1,4 +1,6 @@
 import * as player from "./player.js" 
+import { drawPolygon } from "./debug.js";
+
 const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
 const title = document.querySelector('header .title');
@@ -21,12 +23,14 @@ class cloudObject extends player.sprite{
     }
 }
 
+
 class obsticleObject extends player.sprite{
     constructor(name) {
-        super([worldSize[0] + obsticleData[name][2], groundLevel - obsticleData[name][3]],
+        let drawOffset = obsticleDrawOffset[name];
+        super([worldSize[0] + obsticleData[name][2], groundLevel - obsticleData[name][3] - drawOffset],
             obsticleData[name][2], obsticleData[name][3], obsticleData[name][4], obsticleData[name][5], 
             null, images[name])
-        this.rect = obsticleData[name][0]
+        this.collisionVertices = obsticleData[name][0];
     }
 
     updateVariables(delta){
@@ -34,11 +38,18 @@ class obsticleObject extends player.sprite{
         let dist = - delta * currWorldSpeedRate;
         this.position[0] += dist;
     }
+
+    // debug only
+    draw(){
+        super.draw(this.drawOffset);
+        drawPolygon(ctx, this.position, this.collisionVertices);
+    }
 }
 
+
 class railObject extends player.sprite{
-    constructor(){
-        super([0, 460], 191, 80, 1, 10, "./img/rails3d.png")
+    constructor(position, imgSrc, imgWidth, imgHeight, frameCount, frameHold){
+        super(position, imgSrc, imgWidth, imgHeight, frameCount, frameHold)
     }
 
     updateVariables(delta){
@@ -60,7 +71,7 @@ class railObject extends player.sprite{
 
 const speedRandomMargin = 0.01;
 const groundLevel = 530;
-const skylevel = [20, 100]
+const skylevel = [20, 60]
 const origWorldSpeedRate = 0.4;
 export let currWorldSpeedRate = origWorldSpeedRate;     //all variables are in  per milisecond units
 const speedIncrement = 0.00005;
@@ -71,23 +82,36 @@ export let currScale = 1;                               // for placing and movin
 
 const obsticles = new Set();
 const clouds = new Set();           
-const images = {}               // name : image
+const images = {};               // name : image
 
-const rails = new railObject();
+const rails = new railObject([0, 460], 191, 80, 1, 10, "./img/rails3d.png");
+const background = new railObject([0, 340], 4820, 262, 1, 10, "./img/background.png");
 
 
-const cloudData = {}            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
-cloudData['cloud0'] = [0.3, "./img/cloud1.png", 202, 103, 1, 5];
+const cloudData = {};            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
+cloudData['cloud0'] = [0.3, "./img/cloud0.png", 202, 103, 1, 5];
 cloudData['cloud1'] = [0.3, "./img/cloud1.png", 202, 103, 1, 5];
 cloudData['cloud2'] = [0.2, "./img/cloud2.png", 250, 107, 1, 5];
-const cloudSpawnFreq = [[3, 'cloud0'], [6, 'cloud1'], [10, 'cloud2']]
-const origCloudDeltaRange = [1000, 5000]; 
+cloudData['cloud3'] = [0.3, "./img/cloud3.png", 192, 88, 1, 5];
+cloudData['cloud4'] = [0.2, "./img/cloud4.png", 192, 88, 1, 5];
+cloudData['cloud5'] = [0.2, "./img/cloud5.png", 192, 109, 1, 5];
+cloudData['cloud6'] = [0.2, "./img/cloud6.png", 252, 119, 1, 5];
+cloudData['cloud7'] = [0.2, "./img/cloud7.png", 160, 67, 1, 5];
+cloudData['cloud8'] = [0.2, "./img/cloud8.png", 139, 63, 1, 5];
+
+// const cloudSpawnFreq = [[3, 'cloud0'], [6, 'cloud1'], [10, 'cloud2']];
+// const cloudSpawnFreq = [[3, 'cloud3'], [6, 'cloud4']];
+const cloudSpawnFreq = [[3, 'cloud5'], [6, 'cloud6'], [10, 'cloud7'], [14, 'cloud8']];
+const origCloudDeltaRange = [1500, 6000]; 
 let cloudDeltaRange = [...origCloudDeltaRange];
 let cloudDelta = myRandom(...cloudDeltaRange);
 
 const obsticleData = {};        //collisionRect, imgSrc, imgWidth, imgHeight, frameCount, frameHold
-obsticleData['monkey'] = [[0, 0, 83, 136],"./img/monkey.png", 83, 136, 1, 60];
-obsticleData['suicider'] = [[0, 0, 93, 83],"./img/suicider.png", 93, 83, 1, 60];
+obsticleData['monkey'] = [getRectVertices([0, 0, 83, 136]), "./img/monkey2.png", 83, 136, 1, 60];
+obsticleData['suicider'] = [getRectVertices([0, 0, 132, 110]), "./img/suicider2.png", 132, 110, 1, 60];
+const obsticleDrawOffset = {};
+obsticleDrawOffset['suicider'] = -13;
+obsticleDrawOffset['monkey'] = 0;
 const obsticleSpawnFreq = [[5, 'monkey'], [10, 'suicider']]
 const origObsticleDeltaRange = [1000, 8000]; 
 let obsticleDeltaRange = [...origObsticleDeltaRange];
@@ -95,7 +119,7 @@ let obsticleDelta = 500;
 
 
 export function initialize() {
-    resizeWindow()
+    resizeWindow();
     window.addEventListener("resize", resizeWindow)
 
     for (let key in obsticleData) {         // filling up images
@@ -123,16 +147,18 @@ export function updateVariables(delta) {
     }
 
 
-    moveRails(delta);
+    moveRailObject(delta, rails);
+    moveRailObject(delta, background);
     moveClouds(delta);
     moveObsticles(delta);
 }
 
 export function draw(){
+    background.draw()
+    rails.draw()
     for (let cloud of clouds){
         cloud.draw();
     }
-    rails.draw()
     for (let obsticle of obsticles){
         obsticle.draw();
     }
@@ -153,12 +179,14 @@ export function reset () {
 }
 
 export function isGameLost() {
-    for (let obsticle of obsticles)
-        return collideRect( [player.player.rect[0] + player.player.position[0], 
-                player.player.rect[1] + player.player.position[1], player.player.rect[2], player.player.rect[3]],
-            [obsticle.position[0] + obsticle.rect[0], obsticle.position[1] + obsticle.rect[1],
-            obsticle.rect[2], obsticle.rect[3]]);
-
+    const playerPolygon = getWorldPolygon(player.player.position, player.player.collisionVertices);
+    for (let obsticle of obsticles){
+        const obsticlePolygon = getWorldPolygon(obsticle.position, obsticle.collisionVertices);
+        if (collidePolygon(playerPolygon, obsticlePolygon)){
+            return true;
+        }
+    }
+    return false;
 }
 
 function addObsticle() {
@@ -176,10 +204,10 @@ function addCloud() {
     
 }
 
-function moveRails(delta) {
-    rails.position[0] -= currWorldSpeedRate * delta;
-    if (rails.position[0] <= -rails.frameWidth){
-        rails.position[0] += rails.frameWidth;
+function moveRailObject(delta, object) {
+    object.position[0] -= currWorldSpeedRate * delta;
+    if (object.position[0] <= -object.frameWidth){
+        object.position[0] += object.frameWidth;
     }
 }
 
@@ -218,11 +246,84 @@ function resizeWindow(){
     currScale = width / worldSize[0];
 }
 
-function collideRect(rect1, rect2){
-    return rect1[0] < rect2[0] + rect2[2] &&
-        rect1[0] + rect1[2] > rect2[0] &&
-        rect1[1] < rect2[1] + rect2[3] &&
-        rect1[1] + rect1[3] > rect2[1];
+// temporrary function
+function getRectVertices(rect){
+    const vertices = [];
+    vertices[0] = [rect[0], rect[1]];
+    vertices[1] = [rect[0], rect[1] + rect[3]];
+    vertices[2] = [rect[0] + rect[2], rect[1] + rect[3]];
+    vertices[3] = [rect[0] + rect[2], rect[1]];
+    return vertices;
+}
+
+function collidePolygon(p1, p2){
+    let edgeData1 = getEdgeData(p1);            // [point, vector]
+    for (let data of edgeData1){
+        if (!checkCollisionAxis(p1, p2, ...data)){
+            return false;
+        }
+    }
+    let edgeData2 = getEdgeData(p2);            // [point, vector]
+    for (let data of edgeData2){
+        if (!checkCollisionAxis(p1, p2, ...data)){
+            return false;
+        }
+    }
+    return true;
+}
+
+function checkCollisionAxis(p1, p2, point, vector){
+    const normal = [-vector[1], vector[0]];
+    const vectors1 = getVectors(point, p1)
+    const vectors2 = getVectors(point, p2)
+    const span1 = getShapeSpan(vectors1, normal);
+    const span2 = getShapeSpan(vectors2, normal);
+    if (span1[1] < span2[0] || span2[1] < span1[0]){
+        return false;
+    }
+    return true;
+}
+
+function getShapeSpan(edges, normal){
+    let span = [Infinity, -Infinity];
+    for (let edge of edges){
+        let dp = dotProduct(edge, normal);
+        span[0] = Math.min(span[0], dp);
+        span[1] = Math.max(span[1], dp);
+    }
+    return span
+}  
+
+function getWorldPolygon(pos, vertices){
+    return vertices.map((x) => [x[0] + pos[0], x[1] + pos[1]]);
+}
+
+function getEdgeData(polygon){
+    const data = [];            // [point, vector]
+    let i, j;
+    for (i = 0, j = polygon.length-1; i < polygon.length; j = i++){
+        data[i] = [[...polygon[i]], [polygon[i][0] - polygon[j][0], polygon[i][1] - polygon[j][1]]];
+    }
+    return data;
+}
+
+function getVectors(start, ends){
+    const vectors = [];
+    for (let i = 0; i < ends.length; i++){
+        vectors[i] = [ends[i][0] - start[0], ends[i][1] - start[1]]
+    }
+    return vectors
+}
+
+function dotProduct(vec1, vec2){
+    if (vec1.length !== vec2.length){
+        return null;
+    }
+    let sum = 0;
+    for(let i = 0; i < vec1.length; i++){
+        sum += vec1[i] * vec2[i];
+    }
+    return sum;
 }
 
 function myRandom(start, end){
@@ -255,4 +356,3 @@ function ceilBinSearch(seqence, number, start, end) {
     }
     return seqence[start][1];
 }
-

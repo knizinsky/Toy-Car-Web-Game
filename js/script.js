@@ -8,6 +8,7 @@ let inGame = false;
 let lastTime = 0;
 let delta;
 let score = 0;
+const delta_limit = 1000
 const scoreInceremnt = 0.01; 
 const scoreObject = document.querySelector('.score');
 const startGameText = document.querySelector(".startGameText p");
@@ -26,21 +27,30 @@ window.addEventListener("keydown", updateInGameStatus);
 
 function mainLoop(timeStamp) {
 	delta = timeStamp - lastTime;
-	lastTime = timeStamp;
-	ctx.fillStyle = 'white';
- 	ctx.fillRect(0, 0, world.worldSize[0], world.worldSize[1]);
-	world.updateVariables(delta);
-	player.updateVariables(delta);
-	updateScore(delta);
-	world.draw();
-	player.draw();
-	if (world.isGameLost()){		
-		endNoteText.innerHTML = "You lost! your score is " + parseInt(score);
-		endNote.style.setProperty("display", "block");
+	if (delta > delta_limit){
+		endGame()
 	}
 	else{
-		window.requestAnimationFrame(mainLoop);
+		lastTime = timeStamp;
+		ctx.fillStyle = 'white';
+		 ctx.fillRect(0, 0, world.worldSize[0], world.worldSize[1]);
+		world.updateVariables(delta);
+		player.updateVariables(delta);
+		updateScore(delta);
+		world.draw();
+		player.draw();
+		if (world.isGameLost()){		
+			endGame()
+		}
+		else{
+			window.requestAnimationFrame(mainLoop);
+		}
 	}
+}
+
+function endGame(){
+	endNoteText.innerHTML = "You lost! your score is " + parseInt(score);
+	endNote.style.setProperty("display", "block");
 }
 
 function updateInGameStatus(){
