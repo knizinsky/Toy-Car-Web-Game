@@ -64,7 +64,7 @@ function mainLoop(timeStamp) {
 			world.draw();
 			player.draw();
 			if (world.isGameLost()){		
-				endGame()
+				endGame();
 			}
 			else{
 				window.requestAnimationFrame(mainLoop);
@@ -106,6 +106,7 @@ function endGame(){
 	endNoteText.innerHTML = "You lost! your score is " + parseInt(score);
 	endNote.style.setProperty("display", "block");
 	backgroundMusic.pause();
+	inGame = false;
 }
 
 function resetGame(){
@@ -116,6 +117,7 @@ function resetGame(){
 	lastTime = performance.now(); 
 	window.requestAnimationFrame(mainLoop);
 	score = 0;
+	inGame = true;
 }
 
 function muteGame(){
