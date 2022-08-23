@@ -87,6 +87,8 @@ const rails = new railObject([0, 460], 191, 80, 1, 10, "./img/rails3d.png");
 const background = new railObject([0, 340], 4820, 262, 1, 10, "./img/background.png");
 const crashSound = new Audio("./audio/crashSound.mp3");
 crashSound.volume = 0.5;
+const fartSound = new Audio("./audio/endFart.wav");
+fartSound.volume = 1;
 
 const cloudData = {};            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
 cloudData['cloud0'] = [0.3, "./img/cloud0.png", 202, 103, 1, 5];
@@ -194,6 +196,7 @@ export function isGameLost() {
     for (let obsticle of obsticles){
         const obsticlePolygon = getWorldPolygon(obsticle.position, obsticle.collisionVertices);
         if (collidePolygon(playerPolygon, obsticlePolygon)){
+            fartSound.play();
             if (!isMuted){
                 crashSound.play();
             } 

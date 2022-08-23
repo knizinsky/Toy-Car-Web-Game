@@ -2,8 +2,8 @@ import { drawPolygon } from "./debug.js";
 
 const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
-const gravity = 0.03;
-const jumpForce = -8;
+const gravity = 0.007;
+const jumpForce = -1.6;
 const maxJumpCount = 2;
 
 
@@ -102,7 +102,7 @@ class playerObject extends sprite{
         this.isMuted = isMuted;
         this.updateAnimation(delta)
         if (this.jumping){
-            this.position[1] += this.yVelocity;
+            this.position[1] += this.yVelocity * delta;
             this.yVelocity += gravity * delta;
             if (this.position[1] > this.startPosition[1]){
                 this.position[1] = this.startPosition[1];
