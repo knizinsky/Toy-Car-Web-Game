@@ -18,8 +18,8 @@ export function initialize() {
     })
 }
 
-export function updateVariables(delta) {
-    player.updateVariables(delta);
+export function updateVariables(delta, isMuted) {
+    player.updateVariables(delta, isMuted);
 }
 
 export function draw(currScale){
@@ -46,6 +46,7 @@ export class sprite{
         this.frameCount = frameCount;
         this.frameIndex = 0;                // index of curr frame
         this.currDelta = 0;
+        this.isMuted = false;
     }
 
     updateAnimation(delta) {
@@ -73,17 +74,32 @@ class playerObject extends sprite{
         this.yVelocity = 0; 
         this.jumpsLeft = maxJumpCount;
         this.jumping = false;
+        this.jumpSound = new Audio('./audio/jumpSound.mp3');
+        this.jumpSound.volume = 0.3;
+        this.doubleJumpSound = new Audio('./audio/jumpSound.mp3');
+        this.doubleJumpSound.volume = 0.3;
+        this.landingSound = new Audio('./audio/landingSound.mp3');
+        this.landingSound.volume = 0.5;
     }
 
     jump() {
         if (this.jumpsLeft > 0){
             this.jumping = true;
             this.yVelocity = jumpForce;
+            if (!this.isMuted){
+                if (this.jumpsLeft === 2){
+                    this.jumpSound.play();
+                }
+                else{
+                    this.doubleJumpSound.play();
+                }
+            }
             this.jumpsLeft -= 1;
         }
     }
 
-    updateVariables(delta) {
+    updateVariables(delta, isMuted) {
+        this.isMuted = isMuted;
         this.updateAnimation(delta)
         if (this.jumping){
             this.position[1] += this.yVelocity;
@@ -93,6 +109,9 @@ class playerObject extends sprite{
                 this.jumpsLeft = maxJumpCount
                 this.yVelocity = 0;
                 this.jumping = false;
+                if (!this.isMuted){
+                    this.landingSound.play();
+                }
             } 
         }
     }

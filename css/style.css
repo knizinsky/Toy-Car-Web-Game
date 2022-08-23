@@ -21,6 +21,21 @@ header .title {
   text-align: center;
 }
 
+.interfaceButton {
+  position: absolute;
+  top: 4%;
+  height: 5%;
+  width: 3%;
+}
+
+#muteButton {
+  right: 2%;
+}
+
+#pauseButton {
+  right: 5%;
+}
+
 .myCanvas {
   position: absolute;
   width: 100%;
@@ -39,13 +54,13 @@ header .title {
   overflow: hidden;
 }
 
-.startGameText {
+.popUp {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
-.startGameText p {
+.popUp p {
   color: var(--gray);
 }
 
@@ -56,7 +71,7 @@ header .title {
   color: var(--gray);
 }
 
-.endNote {
+.Note {
   position: absolute;
   display: none;
   left: 50%;
@@ -70,14 +85,14 @@ header .title {
   border-radius: 5px;
   border: 1px solid var(--darkGray);
   box-shadow: 0 0 2px rgb(20, 20, 20);
-  -webkit-animation: endNoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
-          animation: endNoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
+  -webkit-animation: NoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
+          animation: NoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
 }
-.endNote .end-text {
+.Note .end-text {
   text-shadow: 0 0 2px black;
 }
 
-.endNote p {
+.Note p {
   color: white;
 }
 
@@ -85,7 +100,7 @@ header .title {
   display: none;
 }
 
-.start-text-mobile {
+.startTextMobile {
   font-size: 20px;
 }
 
@@ -103,13 +118,13 @@ header .title {
           animation: vibrate-1 0.9s 0.2s linear infinite both;
 }
 
-.newGameButton {
+.popUpButton {
   font-size: 12px;
   border: 1px solid var(--darkGray);
   margin-top: 5px;
 }
 
-.newGameButton:hover {
+.popUpButton:hover {
   cursor: pointer;
   background-color: #d0d0d0;
   transform: scale(1.05);
@@ -117,7 +132,7 @@ header .title {
 }
 
 @media (min-width: 360px) {
-  .endNote {
+  .Note {
     height: 45%;
   }
   .start-button {
@@ -128,13 +143,13 @@ header .title {
   }
 }
 @media (min-width: 450px) {
-  .endNote {
+  .Note {
     height: 40%;
   }
-  .endNote p {
+  .Note p {
     font-size: 18px;
   }
-  .newGameButton {
+  .popUpButton {
     margin-top: 8px;
     font-size: 15px;
     padding: 0 20px;
@@ -150,10 +165,10 @@ header .title {
   header .title {
     font-size: 45px;
   }
-  .startGameText p {
+  .popUp p {
     font-size: 22px;
   }
-  .newGameButton {
+  .popUpButton {
     margin-top: 8px;
     font-size: 18px;
     padding: 0 15px;
@@ -172,13 +187,13 @@ header .title {
   header .title {
     font-size: 52px;
   }
-  .startGameText p {
+  .popUp p {
     font-size: 28px;
   }
   .score {
     font-size: 22px;
   }
-  .newGameButton {
+  .popUpButton {
     margin-top: 11px;
     font-size: 22px;
     padding: 0 12px;
@@ -196,19 +211,19 @@ header .title {
   .start-text {
     display: block;
   }
-  .start-text-mobile {
+  /* .startTextMobile {
     display: none;
-  }
+  } */
   header .title {
     font-size: 58px;
   }
-  .startGameText p {
+  .popUp p {
     font-size: 36px;
   }
   .score {
     font-size: 25px;
   }
-  .newGameButton {
+  .popUpButton {
     margin-top: 20px;
     font-size: 25px;
     padding: 2px 12px;
@@ -219,13 +234,13 @@ header .title {
   header .title {
     font-size: 63px;
   }
-  .startGameText p {
+  .popUp p {
     font-size: 45px;
   }
   .score {
     font-size: 29px;
   }
-  .newGameButton {
+  .popUpButton {
     margin-top: 22px;
     font-size: 29px;
     padding: 5px 12px;
@@ -235,10 +250,10 @@ header .title {
   header .title {
     font-size: 63px;
   }
-  .startGameText .start-text {
+  .popUp .start-text {
     font-size: 45px;
   }
-  .startGameText .end-text {
+  .popUp .end-text {
     font-size: 54px;
     -webkit-animation: text-shadow-pop-top 0.6s both;
             animation: text-shadow-pop-top 0.6s both;
@@ -246,18 +261,18 @@ header .title {
   .score {
     font-size: 32px;
   }
-  .newGameButton {
+  .popUpButton {
     margin-top: 30px;
     font-size: 32px;
     padding: 7px 12px;
   }
 }
 @media (min-width: 1600px) {
-  .newGameButton {
+  .popUpButton {
     font-size: 42px;
   }
 }
-@-webkit-keyframes endNoteAnimation {
+@-webkit-keyframes NoteAnimation {
   0% {
     transform: translate(-50%, -50%) scale(0.5);
     opacity: 0;
@@ -267,7 +282,7 @@ header .title {
     opacity: 1;
   }
 }
-@keyframes endNoteAnimation {
+@keyframes NoteAnimation {
   0% {
     transform: translate(-50%, -50%) scale(0.5);
     opacity: 0;

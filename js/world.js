@@ -5,7 +5,6 @@ const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
 const title = document.querySelector('header .title');
 
-
 class cloudObject extends player.sprite{
     constructor(name) {
         super([worldSize[0] + cloudData[name][2], myRandom(...skylevel)],
@@ -68,7 +67,7 @@ class railObject extends player.sprite{
     }
 }
 
-
+let isMuted = false;
 const speedRandomMargin = 0.01;
 const groundLevel = 530;
 const skylevel = [20, 60]
@@ -86,7 +85,8 @@ const images = {};               // name : image
 
 const rails = new railObject([0, 460], 191, 80, 1, 10, "./img/rails3d.png");
 const background = new railObject([0, 340], 4820, 262, 1, 10, "./img/background.png");
-
+const crashSound = new Audio("./audio/crashSound.mp3");
+crashSound.volume = 0.5;
 
 const cloudData = {};            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
 cloudData['cloud0'] = [0.3, "./img/cloud0.png", 202, 103, 1, 5];
@@ -132,7 +132,8 @@ export function initialize() {
     }
 }
 
-export function updateVariables(delta) {
+export function updateVariables(delta, muted) {
+    isMuted = muted;
     currWorldSpeedRate += speedIncrement;
     if (cloudDeltaRange[1] - cloudDeltaRange[0] < 200){
         cloudDeltaRange[0] -= randomRangeModifier * delta / 10;
@@ -156,7 +157,6 @@ export function updateVariables(delta) {
     if (obsticleDelta <= 0){
         addObsticle();
     }
-
 
     moveRailObject(delta, rails);
     moveRailObject(delta, background);
@@ -194,6 +194,9 @@ export function isGameLost() {
     for (let obsticle of obsticles){
         const obsticlePolygon = getWorldPolygon(obsticle.position, obsticle.collisionVertices);
         if (collidePolygon(playerPolygon, obsticlePolygon)){
+            if (!isMuted){
+                crashSound.play();
+            } 
             return true;
         }
     }
