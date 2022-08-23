@@ -107,8 +107,8 @@ let cloudDeltaRange = [...origCloudDeltaRange];
 let cloudDelta = myRandom(...cloudDeltaRange);
 
 const obsticleData = {};        //collisionRect, imgSrc, imgWidth, imgHeight, frameCount, frameHold
-obsticleData['monkey'] = [[[73, 12], [0, 117], [8, 180], [116, 180], [148, 156]], "./img/monkey4.png", 161, 192, 1, 60];
-obsticleData['suicider'] = [[[73, 23], [0, 82], [17, 107], [53, 106], [122, 42]], "./img/suicider3.png", 132, 110, 1, 60];
+obsticleData['monkey'] = [[[73, 12], [0, 132], [8, 188], [108, 188], [155, 144]], "./img/monkey4.png", 161, 192, 1, 60];
+obsticleData['suicider'] = [[[73, 23], [5, 80], [17, 107], [53, 106], [122, 42]], "./img/suicider3.png", 132, 110, 1, 60];
 const obsticleDrawOffset = {};
 obsticleDrawOffset['suicider'] = -13;
 obsticleDrawOffset['monkey'] = 0;
