@@ -2,32 +2,47 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-}
-
-:root {
+  }
+  
+  :root {
 	--gray: #545454;
 	--darkGray: #333333;
-}
-
-body {
+  }
+  
+  body {
 	background-color: rgb(253, 253, 253);
-	font-family: 'Silkscreen', cursive;
+	font-family: "Silkscreen", cursive;
 	letter-spacing: -2px;
-}
-
-header .title {
+  }
+  
+  header .title {
 	font-size: 32px;
 	color: var(--gray);
 	text-align: center;
-}
-
-.myCanvas {
+  }
+  
+  .interfaceButton {
+	position: absolute;
+	top: 4%;
+	height: 5%;
+	width: 3%;
+  }
+  
+  #muteButton {
+	right: 2%;
+  }
+  
+  #pauseButton {
+	right: 5%;
+  }
+  
+  .myCanvas {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-}
-
-.world {
+  }
+  
+  .world {
 	left: 50%;
 	transform: translate(-50%, 0);
 	--height: 600px;
@@ -37,28 +52,26 @@ header .title {
 	width: var(--width);
 	border: 5px solid var(--gray);
 	overflow: hidden;
-}
-.startGameText {
+  }
+  
+  .popUp {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-
-	p {
-		// font-size: 14px;
-		// text-align: center;
-		color: var(--gray);
-	}
-}
-
-.score {
+  }
+  .popUp p {
+	color: var(--gray);
+  }
+  
+  .score {
 	position: absolute;
 	right: 4%;
 	top: 2%;
 	color: var(--gray);
-}
-
-.endNote {
+  }
+  
+  .Note {
 	position: absolute;
 	display: none;
 	left: 50%;
@@ -72,28 +85,27 @@ header .title {
 	border-radius: 5px;
 	border: 1px solid var(--darkGray);
 	box-shadow: 0 0 2px rgb(20, 20, 20);
-	animation: endNoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
-
-	.end-text {
-		text-shadow: 0 0 2px black;
-	}
-}
-
-.endNote p {
+	-webkit-animation: NoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
+			animation: NoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
+  }
+  .Note .end-text {
+	text-shadow: 0 0 2px black;
+  }
+  
+  .Note p {
 	color: white;
-}
-
-.start-text {
+  }
+  
+  .start-text {
 	display: none;
-}
-
-.start-text-mobile {
+  }
+  
+  .startTextMobile {
 	font-size: 20px;
-}
-
-// mutual class for buttons
-.pixelButton {
-	font-family: 'Silkscreen', cursive;
+  }
+  
+  .pixelButton {
+	font-family: "Silkscreen", cursive;
 	text-transform: uppercase;
 	padding: 0 15px;
 	border-radius: 5px;
@@ -102,297 +114,353 @@ header .title {
 	letter-spacing: -2px;
 	transition-property: color, transform, background-color;
 	transition-duration: 0.2s;
-	animation: vibrate-1 0.9s 0.2s linear infinite both;
-}
-
-//button after losing
-.newGameButton {
+	-webkit-animation: vibrate-1 0.9s 0.2s linear infinite both;
+			animation: vibrate-1 0.9s 0.2s linear infinite both;
+  }
+  
+  .popUpButton {
 	font-size: 12px;
 	border: 1px solid var(--darkGray);
 	margin-top: 5px;
-}
-
-.newGameButton:hover {
+  }
+  
+  .popUpButton:hover {
 	cursor: pointer;
 	background-color: #d0d0d0;
 	transform: scale(1.05);
 	text-shadow: 0 0 1px rgb(60, 60, 60);
-}
+  }
 
-//inicial button
-// .start-button{
-//
-// }
-
-// media queries
-
-@media (min-width: 360px) {
-	.endNote {
-		height: 45%;
+  .startButton{
+	cursor: pointer;
+  }
+  
+  @media (min-width: 360px) {
+	.Note {
+	  height: 45%;
 	}
 
-	.start-button {
-		font-size: 20px;
+	.startButton {
+	  font-size: 20px;
 	}
 
 	.carEmoji {
-		font-size: 28px;
+	  font-size: 28px;
 	}
-}
+  }
 
-@media (min-width: 450px) {
-	.endNote {
-		height: 40%;
-
-		p{
-			font-size: 18px;
-		}
+  @media (min-width: 450px) {
+	.Note {
+	  height: 40%;
 	}
 
-	.newGameButton {
-		margin-top: 8px;
-		font-size: 15px;
-		padding: 0 20px;
+	.Note p {
+	  font-size: 18px;
 	}
 
-	.start-button {
-		font-size: 25px;
+	.popUpButton {
+	  margin-top: 8px;
+	  font-size: 15px;
+	  padding: 0 20px;
 	}
 
-	.carEmoji {
-		font-size: 34px;
-	}
-}
-
-@media (min-width: 576px) {
-	header .title {
-		font-size: 45px;
-	}
-
-	.startGameText p {
-		font-size: 22px;
-	}
-
-	.newGameButton {
-		margin-top: 8px;
-		font-size: 18px;
-		padding: 0 15px;
-		letter-spacing: -3px;
-		animation: vibrate-1 0.75s 0.2s linear infinite both;
-	}
-
-	.start-button {
-		font-size: 30px;
+	.startButton {
+	  font-size: 25px;
 	}
 
 	.carEmoji {
-		font-size: 40px;
+	  font-size: 34px;
 	}
-}
+  }
 
-@media (min-width: 768px) {
+  @media (min-width: 576px) {
 	header .title {
-		font-size: 52px;
+	  font-size: 45px;
 	}
 
-	.startGameText p {
-		font-size: 28px;
+	.popUp p {
+	  font-size: 22px;
 	}
 
-	.score {
-		font-size: 22px;
+	.popUpButton {
+	  margin-top: 8px;
+	  font-size: 18px;
+	  padding: 0 15px;
+	  letter-spacing: -3px;
+	  -webkit-animation: vibrate-1 0.75s 0.2s linear infinite both;
+			  animation: vibrate-1 0.75s 0.2s linear infinite both;
 	}
 
-	.newGameButton {
-		margin-top: 11px;
-		font-size: 22px;
-		padding: 0 12px;
-		animation: vibrate-1 0.65s 0.2s linear infinite both;
-	}
-
-	.start-button {
-		font-size: 38px;
+	.startButton {
+	  font-size: 30px;
 	}
 
 	.carEmoji {
-		font-size: 48px;
+	  font-size: 40px;
 	}
-}
+  }
 
-@media (min-width: 992px) {
-	.start-text {
-		display: block;
-	}
-
-	.start-text-mobile {
-		display: none;
-	}
-
+  @media (min-width: 768px) {
 	header .title {
-		font-size: 58px;
+	  font-size: 52px;
 	}
 
-	.startGameText p {
-		font-size: 36px;
+	.popUp p {
+	  font-size: 28px;
 	}
 
 	.score {
-		font-size: 25px;
+	  font-size: 22px;
 	}
-	.newGameButton {
-		margin-top: 20px;
-		font-size: 25px;
-		padding: 2px 12px;
-		border: 2px solid var(--darkGray);
-	}
-}
 
-@media (min-width: 1200px) {
+	.popUpButton {
+	  margin-top: 11px;
+	  font-size: 22px;
+	  padding: 0 12px;
+	  -webkit-animation: vibrate-1 0.65s 0.2s linear infinite both;
+			  animation: vibrate-1 0.65s 0.2s linear infinite both;
+	}
+
+	.startButton {
+	  font-size: 38px;
+	}
+
+	.carEmoji {
+	  font-size: 48px;
+	}
+  }
+
+  @media (min-width: 992px) {
+	// .start-text {
+	//   display: block;
+	// }
+	/* .startTextMobile {
+	  display: none;
+	} */
 	header .title {
-		font-size: 63px;
+	  font-size: 58px;
 	}
 
-	.startGameText p {
-		font-size: 45px;
+	.startButton {
+		font-size: 50px;
+	  }
+
+	.carEmoji {
+		font-size: 71px;
+	}
+
+	.popUp p {
+	  font-size: 36px;
 	}
 
 	.score {
-		font-size: 29px;
+	  font-size: 25px;
 	}
-	.newGameButton {
-		margin-top: 22px;
-		font-size: 29px;
-		padding: 5px 12px;
-	}
-}
 
-@media (min-width: 1400px) {
+	.popUpButton {
+	  margin-top: 20px;
+	  font-size: 25px;
+	  padding: 2px 12px;
+	  border: 2px solid var(--darkGray);
+	}
+  }
+
+  @media (min-width: 1200px) {
 	header .title {
-		font-size: 63px;
+	  font-size: 63px;
 	}
 
-	.startGameText {
-		.start-text {
-			font-size: 45px;
-		}
-		.end-text {
-			font-size: 54px;
-			animation: text-shadow-pop-top 0.6s both;
-		}
+	.startButton {
+		font-size: 62px;
+	}
+
+	.carEmoji {
+		font-size: 76px;
+	}
+
+	.popUp p {
+	  font-size: 45px;
 	}
 
 	.score {
-		font-size: 32px;
+	  font-size: 29px;
 	}
-	.newGameButton {
-		margin-top: 30px;
-		font-size: 32px;
-		padding: 7px 12px;
+
+	.popUpButton {
+	  margin-top: 22px;
+	  font-size: 29px;
+	  padding: 5px 12px;
 	}
-}
+  }
 
-@media (min-width: 1600px) {
-	.newGameButton {
-		font-size: 42px;
+  @media (min-width: 1400px) {
+	header .title {
+	  font-size: 63px;
 	}
-}
 
-// animations
+	.popUp .start-text {
+	  font-size: 45px;
+	}
 
-@keyframes endNoteAnimation {
+	.popUp .end-text {
+	  font-size: 54px;
+	  -webkit-animation: text-shadow-pop-top 0.6s both;
+			  animation: text-shadow-pop-top 0.6s both;
+	}
+
+	.score {
+	  font-size: 32px;
+	}
+
+	.popUpButton {
+	  margin-top: 30px;
+	  font-size: 32px;
+	  padding: 7px 12px;
+	}
+  }
+
+  @media (min-width: 1600px) {
+	.popUpButton {
+	  font-size: 42px;
+	}
+  }
+  @-webkit-keyframes NoteAnimation {
 	0% {
-		transform: translate(-50%, -50%) scale(0.5);
-		opacity: 0;
+	  transform: translate(-50%, -50%) scale(0.5);
+	  opacity: 0;
+	}
+
+	100% {
+	  transform: translate(-50%, -50%) scale(1);
+	  opacity: 1;
+	}
+  }
+  @keyframes NoteAnimation {
+	0% {
+	  transform: translate(-50%, -50%) scale(0.5);
+	  opacity: 0;
 	}
 	100% {
-		transform: translate(-50%, -50%) scale(1);
-		opacity: 1;
+	  transform: translate(-50%, -50%) scale(1);
+	  opacity: 1;
 	}
-}
-
-/* ----------------------------------------------
- * Generated by Animista on 2022-8-19 23:38:20
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-/**
- * ----------------------------------------
- * animation vibrate-1
- * ----------------------------------------
- */
-
-@keyframes vibrate-1 {
+  }
+  /* ----------------------------------------------
+   * Generated by Animista on 2022-8-19 23:38:20
+   * Licensed under FreeBSD License.
+   * See http://animista.net/license for more info. 
+   * w: http://animista.net, t: @cssanimista
+   * ---------------------------------------------- */
+  /**
+   * ----------------------------------------
+   * animation vibrate-1
+   * ----------------------------------------
+   */
+  @-webkit-keyframes vibrate-1 {
 	0% {
-		transform: translate(0);
+	  transform: translate(0);
 	}
 	20% {
-		transform: translate(-1px, 1px);
+	  transform: translate(-1px, 1px);
 	}
 	40% {
-		transform: translate(-1px, -1px);
+	  transform: translate(-1px, -1px);
 	}
 	60% {
-		transform: translate(1px, 1px);
+	  transform: translate(1px, 1px);
 	}
 	80% {
-		transform: translate(1px, -1px);
+	  transform: translate(1px, -1px);
 	}
 	100% {
-		transform: translate(0);
+	  transform: translate(0);
 	}
-}
-
-/* ----------------------------------------------
- * Generated by Animista on 2022-8-20 12:41:47
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-/**
- * ----------------------------------------
- * animation text-shadow-pop-top
- * ----------------------------------------
- */
-
-@keyframes text-shadow-pop-top {
+  }
+  @keyframes vibrate-1 {
 	0% {
-		text-shadow: 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555,
-			0 0 #555555, 0 0 #555555, 0 0 #555555;
-		transform: translateY(0);
+	  transform: translate(0);
+	}
+	20% {
+	  transform: translate(-1px, 1px);
+	}
+	40% {
+	  transform: translate(-1px, -1px);
+	}
+	60% {
+	  transform: translate(1px, 1px);
+	}
+	80% {
+	  transform: translate(1px, -1px);
 	}
 	100% {
-		text-shadow: 0 -1px #555555, 0 -2px #555555, 0 -3px #555555, 0 -4px #555555,
-			0 -5px #555555, 0 -6px #555555, 0 -7px #555555, 0 -8px #555555;
-		transform: translateY(2px);
+	  transform: translate(0);
 	}
-}
-
-/* ----------------------------------------------
- * Generated by Animista on 2022-8-20 15:43:19
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-/**
- * ----------------------------------------
- * animation scale-out-center
- * ----------------------------------------
- */
-.scale-out-center {
-	animation: scale-out-center 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-}
-
-@keyframes scale-out-center {
+  }
+  /* ----------------------------------------------
+   * Generated by Animista on 2022-8-20 12:41:47
+   * Licensed under FreeBSD License.
+   * See http://animista.net/license for more info. 
+   * w: http://animista.net, t: @cssanimista
+   * ---------------------------------------------- */
+  /**
+   * ----------------------------------------
+   * animation text-shadow-pop-top
+   * ----------------------------------------
+   */
+  @-webkit-keyframes text-shadow-pop-top {
 	0% {
-		transform: scale(1);
-		opacity: 1;
+	  text-shadow: 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555;
+	  transform: translateY(0);
 	}
 	100% {
-		transform: scale(0);
-		opacity: 0;
+	  text-shadow: 0 -1px #555555, 0 -2px #555555, 0 -3px #555555, 0 -4px #555555, 0 -5px #555555, 0 -6px #555555, 0 -7px #555555, 0 -8px #555555;
+	  transform: translateY(2px);
 	}
-}
+  }
+  @keyframes text-shadow-pop-top {
+	0% {
+	  text-shadow: 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555, 0 0 #555555;
+	  transform: translateY(0);
+	}
+	100% {
+	  text-shadow: 0 -1px #555555, 0 -2px #555555, 0 -3px #555555, 0 -4px #555555, 0 -5px #555555, 0 -6px #555555, 0 -7px #555555, 0 -8px #555555;
+	  transform: translateY(2px);
+	}
+  }
+  /* ----------------------------------------------
+   * Generated by Animista on 2022-8-20 15:43:19
+   * Licensed under FreeBSD License.
+   * See http://animista.net/license for more info. 
+   * w: http://animista.net, t: @cssanimista
+   * ---------------------------------------------- */
+  /**
+   * ----------------------------------------
+   * animation scale-out-center
+   * ----------------------------------------
+   */
+  .scale-out-center {
+	-webkit-animation: scale-out-center 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+			animation: scale-out-center 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  }
+  
+  @-webkit-keyframes scale-out-center {
+	0% {
+	  transform: scale(1);
+	  opacity: 1;
+	}
+	100% {
+	  transform: scale(0);
+	  opacity: 0;
+	}
+  }
+  
+  @keyframes scale-out-center {
+	0% {
+	  transform: scale(1);
+	  opacity: 1;
+	}
+	100% {
+	  transform: scale(0);
+	  opacity: 0;
+	}
+  }/*# sourceMappingURL=style.css.map */

@@ -60,6 +60,7 @@ header .title {
   align-items: center;
   height: 100%;
 }
+
 .popUp p {
   color: var(--gray);
 }
@@ -86,8 +87,9 @@ header .title {
   border: 1px solid var(--darkGray);
   box-shadow: 0 0 2px rgb(20, 20, 20);
   -webkit-animation: NoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
-          animation: NoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
+  animation: NoteAnimation 0.3s cubic-bezier(0.174, 0.886, 0.321, 1.274) both;
 }
+
 .Note .end-text {
   text-shadow: 0 0 2px black;
 }
@@ -115,7 +117,7 @@ header .title {
   transition-property: color, transform, background-color;
   transition-duration: 0.2s;
   -webkit-animation: vibrate-1 0.9s 0.2s linear infinite both;
-          animation: vibrate-1 0.9s 0.2s linear infinite both;
+  animation: vibrate-1 0.9s 0.2s linear infinite both;
 }
 
 .popUpButton {
@@ -131,11 +133,15 @@ header .title {
   text-shadow: 0 0 1px rgb(60, 60, 60);
 }
 
+.startButton {
+  cursor: pointer;
+}
+
 @media (min-width: 360px) {
   .Note {
     height: 45%;
   }
-  .start-button {
+  .startButton {
     font-size: 20px;
   }
   .carEmoji {
@@ -154,7 +160,7 @@ header .title {
     font-size: 15px;
     padding: 0 20px;
   }
-  .start-button {
+  .startButton {
     font-size: 25px;
   }
   .carEmoji {
@@ -174,9 +180,9 @@ header .title {
     padding: 0 15px;
     letter-spacing: -3px;
     -webkit-animation: vibrate-1 0.75s 0.2s linear infinite both;
-            animation: vibrate-1 0.75s 0.2s linear infinite both;
+    animation: vibrate-1 0.75s 0.2s linear infinite both;
   }
-  .start-button {
+  .startButton {
     font-size: 30px;
   }
   .carEmoji {
@@ -198,9 +204,9 @@ header .title {
     font-size: 22px;
     padding: 0 12px;
     -webkit-animation: vibrate-1 0.65s 0.2s linear infinite both;
-            animation: vibrate-1 0.65s 0.2s linear infinite both;
+    animation: vibrate-1 0.65s 0.2s linear infinite both;
   }
-  .start-button {
+  .startButton {
     font-size: 38px;
   }
   .carEmoji {
@@ -208,14 +214,17 @@ header .title {
   }
 }
 @media (min-width: 992px) {
-  .start-text {
-    display: block;
-  }
   /* .startTextMobile {
     display: none;
   } */
   header .title {
     font-size: 58px;
+  }
+  .startButton {
+    font-size: 50px;
+  }
+  .carEmoji {
+    font-size: 71px;
   }
   .popUp p {
     font-size: 36px;
@@ -233,6 +242,12 @@ header .title {
 @media (min-width: 1200px) {
   header .title {
     font-size: 63px;
+  }
+  .startButton {
+    font-size: 62px;
+  }
+  .carEmoji {
+    font-size: 76px;
   }
   .popUp p {
     font-size: 45px;
@@ -256,7 +271,7 @@ header .title {
   .popUp .end-text {
     font-size: 54px;
     -webkit-animation: text-shadow-pop-top 0.6s both;
-            animation: text-shadow-pop-top 0.6s both;
+    animation: text-shadow-pop-top 0.6s both;
   }
   .score {
     font-size: 32px;
@@ -387,7 +402,7 @@ header .title {
  */
 .scale-out-center {
   -webkit-animation: scale-out-center 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-          animation: scale-out-center 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: scale-out-center 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
 
 @-webkit-keyframes scale-out-center {
@@ -400,7 +415,6 @@ header .title {
     opacity: 0;
   }
 }
-
 @keyframes scale-out-center {
   0% {
     transform: scale(1);
@@ -410,4 +424,4 @@ header .title {
     transform: scale(0);
     opacity: 0;
   }
-}/*# sourceMappingURL=style.css.map */
+} /*# sourceMappingURL=style.css.map *//*# sourceMappingURL=style.css.map */
