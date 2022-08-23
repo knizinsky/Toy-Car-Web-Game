@@ -19,22 +19,36 @@
     <header>
         <div class="title">
             <p>ZABAWKA AUTKO</p>
+            <button id="pauseButton" class="interfaceButton">pause</button>
+            <button id="muteButton" class="interfaceButton">mute</button>
         </div>
     </header>
     <main>
+        <audio id="backgroundMusic" loop>
+            <source src="./audio/backgroundMusic.wav" type="audio/wav">
+            <source src="./audio/backgroundMusic.mp3" type="audio/mp3">
+        </audio>
+
         <div class="world">
             <canvas class="myCanvas" width="1920" height="600"></canvas>
-            <div class="startGameText fade-up">
-                <p class="start-text"><span class="carEmoji">🚗</span> Press any key to start the game <span
-                        class="carEmoji">🚗</span></p>
-                <p class="start-text-mobile"><span class="carEmoji">🚗</span> <button
-                        class="start-button pixelButton">Start new game</button> <span class="carEmoji">🚗</span></p>
+
+            <div class="popUp fade-up">
+                <p class="startTextMobile"><span class="carEmoji">🚗</span> 
+                    <button id="startButton" class="startButton pixelButton">Start new game</button> <span class="carEmoji">🚗</span></p>
                 <div class="score"></div>
-                <div class="endNote">
+                <div id="endNote" class="Note">
                     <p class="end-text">You lost! your score is ...</p>
-                    <button class="newGameButton pixelButton">Start new game</button>
+                    <button id="restartButton" class="popUpButton pixelButton">Start new game</button>
+                </div>
+                <div id="pauseNote" class="Note">
+                    <p class="end-text">Your game is paused</p>
+                    <button id="resumeButton" class="popUpButton pixelButton">Resume</button>
                 </div>
             </div>
+            
+
+
+
     </main>
     <footer></footer>
 

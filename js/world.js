@@ -5,7 +5,6 @@ const canvas = document.querySelector(".myCanvas");
 const ctx = canvas.getContext('2d');
 const title = document.querySelector('header .title');
 
-
 class cloudObject extends player.sprite{
     constructor(name) {
         super([worldSize[0] + cloudData[name][2], myRandom(...skylevel)],
@@ -68,14 +67,14 @@ class railObject extends player.sprite{
     }
 }
 
-
+let isMuted = false;
 const speedRandomMargin = 0.01;
 const groundLevel = 530;
 const skylevel = [20, 60]
-const origWorldSpeedRate = 0.4;
+const origWorldSpeedRate = 0.55;
 export let currWorldSpeedRate = origWorldSpeedRate;     //all variables are in  per milisecond units
 const speedIncrement = 0.00005;
-const randomRangeModifier = 0.005;
+const randomRangeModifier = 0.06 ;
 const world = document.querySelector(".world");
 export const worldSize = [1920, 600];
 export let currScale = 1;                               // for placing and moving obejcts
@@ -86,7 +85,8 @@ const images = {};               // name : image
 
 const rails = new railObject([0, 460], 191, 80, 1, 10, "./img/rails3d.png");
 const background = new railObject([0, 340], 4820, 262, 1, 10, "./img/background.png");
-
+const crashSound = new Audio("./audio/crashSound.mp3");
+crashSound.volume = 0.5;
 
 const cloudData = {};            //speed(int(1,10)), imgSrc, imgWidth, imgHeight, frameCount, frameHold
 cloudData['cloud0'] = [0.3, "./img/cloud0.png", 202, 103, 1, 5];
@@ -107,13 +107,13 @@ let cloudDeltaRange = [...origCloudDeltaRange];
 let cloudDelta = myRandom(...cloudDeltaRange);
 
 const obsticleData = {};        //collisionRect, imgSrc, imgWidth, imgHeight, frameCount, frameHold
-obsticleData['monkey'] = [getRectVertices([0, 0, 111, 192]), "./img/monkey4.png", 161, 192, 1, 60];
-obsticleData['suicider'] = [getRectVertices([0, 0, 132, 110]), "./img/suicider3.png", 132, 110, 1, 60];
+obsticleData['monkey'] = [[[73, 12], [0, 132], [8, 188], [108, 188], [155, 144]], "./img/monkey4.png", 161, 192, 1, 60];
+obsticleData['suicider'] = [[[73, 23], [5, 80], [17, 107], [53, 106], [122, 42]], "./img/suicider3.png", 132, 110, 1, 60];
 const obsticleDrawOffset = {};
 obsticleDrawOffset['suicider'] = -13;
 obsticleDrawOffset['monkey'] = 0;
-const obsticleSpawnFreq = [[5, 'monkey'], [6, 'suicider']]  //[[5, 'monkey'], [10, 'suicider']]
-const origObsticleDeltaRange = [1000, 8000]; 
+const obsticleSpawnFreq = [[5, 'monkey'], [10, 'suicider']]
+const origObsticleDeltaRange = [1000, 5000]; 
 let obsticleDeltaRange = [...origObsticleDeltaRange];
 let obsticleDelta = 500;
 
@@ -132,10 +132,22 @@ export function initialize() {
     }
 }
 
-export function updateVariables(delta) {
+export function updateVariables(delta, muted) {
+    isMuted = muted;
     currWorldSpeedRate += speedIncrement;
-    cloudDeltaRange[1] -= randomRangeModifier;
-    obsticleDeltaRange[1] -= randomRangeModifier;
+    if (cloudDeltaRange[1] - cloudDeltaRange[0] < 200){
+        cloudDeltaRange[0] -= randomRangeModifier * delta / 10;
+    }
+    else{
+        cloudDeltaRange[1] -= randomRangeModifier * delta / 2;
+    }
+
+    if (obsticleDeltaRange[1] - obsticleDeltaRange[0] < 200){
+        obsticleDeltaRange[0] -= randomRangeModifier * delta / 5;
+    } 
+    else{
+        obsticleDeltaRange[1] -= randomRangeModifier * delta;
+    }
 
     cloudDelta -= delta;
     if (cloudDelta <= 0){
@@ -145,7 +157,6 @@ export function updateVariables(delta) {
     if (obsticleDelta <= 0){
         addObsticle();
     }
-
 
     moveRailObject(delta, rails);
     moveRailObject(delta, background);
@@ -183,6 +194,9 @@ export function isGameLost() {
     for (let obsticle of obsticles){
         const obsticlePolygon = getWorldPolygon(obsticle.position, obsticle.collisionVertices);
         if (collidePolygon(playerPolygon, obsticlePolygon)){
+            if (!isMuted){
+                crashSound.play();
+            } 
             return true;
         }
     }
