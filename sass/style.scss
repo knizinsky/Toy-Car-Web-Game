@@ -131,8 +131,10 @@
 	text-shadow: 0 0 1px rgb(60, 60, 60);
   }
 
-  .startButton{
+  .startButton:hover{
 	cursor: pointer;
+	background-color: rgb(217, 217, 217);
+	color: #1f1f1f;
   }
   
   @media (min-width: 360px) {
@@ -166,6 +168,7 @@
 
 	.startButton {
 	  font-size: 25px;
+	  padding: 0px 15px;
 	}
 
 	.carEmoji {
@@ -193,6 +196,7 @@
 
 	.startButton {
 	  font-size: 30px;
+	  padding: 5px 20px;
 	}
 
 	.carEmoji {
@@ -223,6 +227,7 @@
 
 	.startButton {
 	  font-size: 38px;
+	  padding: 7px 30px;
 	}
 
 	.carEmoji {
@@ -231,18 +236,13 @@
   }
 
   @media (min-width: 992px) {
-	// .start-text {
-	//   display: block;
-	// }
-	/* .startTextMobile {
-	  display: none;
-	} */
 	header .title {
 	  font-size: 58px;
 	}
 
 	.startButton {
 		font-size: 50px;
+		padding: 10px 30px;
 	  }
 
 	.carEmoji {
@@ -272,6 +272,7 @@
 
 	.startButton {
 		font-size: 62px;
+		padding: 10px 50px;
 	}
 
 	.carEmoji {
