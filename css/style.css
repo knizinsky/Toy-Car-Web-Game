@@ -23,17 +23,28 @@ header .title {
 
 .interfaceButton {
   position: absolute;
-  top: 4%;
-  height: 5%;
-  width: 3%;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--darkGray);
+  box-shadow: 0 0 3px var(--darkGray);
+  transition: background-color 0.2s;
 }
 
-#muteButton {
-  right: 2%;
+.interfaceButton:hover {
+  cursor: pointer;
+  background-color: #dbdbdb;
 }
 
 #pauseButton {
-  right: 5%;
+  top: 5px;
+  left: 4px;
+}
+
+#muteButton {
+  top: 5px;
+  left: 34px;
 }
 
 .myCanvas {
@@ -192,6 +203,15 @@ header .title {
   .carEmoji {
     font-size: 40px;
   }
+  .interfaceButton {
+    font-size: 14px;
+    width: 25px;
+    height: 25px;
+  }
+  #muteButton {
+    top: 5px;
+    left: 36px;
+  }
 }
 @media (min-width: 768px) {
   header .title {
@@ -217,6 +237,15 @@ header .title {
   .carEmoji {
     font-size: 48px;
   }
+  .interfaceButton {
+    font-size: 16px;
+    width: 29px;
+    height: 29px;
+  }
+  #muteButton {
+    top: 5px;
+    left: 37px;
+  }
 }
 @media (min-width: 992px) {
   header .title {
@@ -241,6 +270,16 @@ header .title {
     padding: 2px 12px;
     border: 2px solid var(--darkGray);
   }
+  .interfaceButton {
+    font-size: 20px;
+    width: 37px;
+    height: 37px;
+    margin: 3px;
+  }
+  #muteButton {
+    top: 5px;
+    left: 48px;
+  }
 }
 @media (min-width: 1200px) {
   header .title {
@@ -263,6 +302,16 @@ header .title {
     margin-top: 22px;
     font-size: 29px;
     padding: 5px 12px;
+  }
+  .interfaceButton {
+    font-size: 23px;
+    width: 40px;
+    height: 40px;
+    margin: 4px;
+  }
+  #muteButton {
+    top: 5px;
+    left: 51px;
   }
 }
 @media (min-width: 1400px) {

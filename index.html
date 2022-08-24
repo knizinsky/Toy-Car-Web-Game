@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link rel="icon" href="./img/favicon2.png" type="img/x-icon">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/326bb83d6d.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -19,8 +20,6 @@
     <header>
         <div class="title">
             <p>ZABAWKA AUTKO</p>
-            <button id="pauseButton" class="interfaceButton">pause</button>
-            <button id="muteButton" class="interfaceButton">mute</button>
         </div>
     </header>
     <main>
@@ -31,10 +30,14 @@
 
         <div class="world">
             <canvas class="myCanvas" width="1920" height="600"></canvas>
+            <button id="pauseButton" class="interfaceButton"><i class="fa-solid fa-pause"></i></button>
+            <button id="muteButton" class="interfaceButton"><i class="fa-solid fa-volume-xmark"></i></button>
 
             <div class="popUp fade-up">
-                <p class="startTextMobile"><span class="carEmoji">🚗</span> 
-                    <button id="startButton" class="startButton pixelButton">Start new game</button> <span class="carEmoji">🚗</span></p>
+                <p class="startTextMobile"><span class="carEmoji">🚗</span>
+                    <button id="startButton" class="startButton pixelButton">Start new game</button> <span
+                        class="carEmoji">🚗</span>
+                </p>
                 <div class="score"></div>
                 <div id="endNote" class="Note">
                     <p class="end-text">You lost! your score is ...</p>
@@ -45,7 +48,7 @@
                     <button id="resumeButton" class="popUpButton pixelButton">Resume</button>
                 </div>
             </div>
-            
+
 
 
 
