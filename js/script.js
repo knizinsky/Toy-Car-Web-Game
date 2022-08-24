@@ -25,6 +25,8 @@ const resumeButton = document.getElementById("resumeButton");
 const restartButton = document.getElementById("restartButton");
 const newGameButton = document.getElementById("startButton");
 const muteButton = document.getElementById("muteButton");
+const pauseIcon = document.querySelector('.pauseIcon');
+const muteIcon = document.querySelector('.muteIcon');
 
 newGameButton.addEventListener('click', startGame);
 resumeButton.addEventListener('click', resumeGame)
@@ -32,10 +34,29 @@ restartButton.addEventListener('click', resetGame);
 pauseButton.addEventListener('click', () => {
 	if (gameIsPaused)	resumeGame();
 	else				pauseGame();
+
+	if(pauseIcon.classList.contains('fa-pause')){
+		pauseIcon.classList.remove('fa-pause');
+		pauseIcon.classList.add('fa-play');
+	}else{
+		pauseIcon.classList.remove('fa-play');
+		pauseIcon.classList.add('fa-pause');
+	}
+
 })
 muteButton.addEventListener('click', () => {
 	if (isMuted) 	unMuteGame();
 	else			muteGame();
+
+	//fa-volume-xmark
+
+	if(muteIcon.classList.contains('fa-volume-high')){
+		muteIcon.classList.remove('fa-volume-high');
+		muteIcon.classList.add('fa-volume-xmark');
+	}else{
+		muteIcon.classList.remove('fa-volume-xmark');
+		muteIcon.classList.add('fa-volume-high');
+	}
 });
 document.addEventListener("keyup", (event) => {
 	if(event.code === "Space") {
@@ -99,6 +120,14 @@ function resumeGame(){
 		lastTime = performance.now();
 		window.requestAnimationFrame(mainLoop);
 		gameIsPaused = false;
+
+		if(pauseIcon.classList.contains('fa-pause')){
+			pauseIcon.classList.remove('fa-pause');
+			pauseIcon.classList.add('fa-play');
+		}else{
+			pauseIcon.classList.remove('fa-play');
+			pauseIcon.classList.add('fa-pause');
+		}
 	}
 }
 
