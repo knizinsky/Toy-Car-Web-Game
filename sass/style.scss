@@ -23,18 +23,30 @@
   
   .interfaceButton {
 	position: absolute;
-	top: 4%;
-	height: 5%;
-	width: 3%;
+	font-size: 12px;
+	width: 20px;
+	height: 20px;
+	border-radius: 4px;
+	border: 1px solid var(--darkGray);
+	box-shadow: 0 0 3px var(--darkGray);
+	transition: background-color .2s;
+  }
+
+  .interfaceButton:hover{
+	cursor: pointer;
+	background-color: #dbdbdb;
+  }
+
+  #pauseButton {
+	top: 5px;
+	left: 4px;
   }
   
   #muteButton {
-	right: 2%;
+	top: 5px;
+	left: 34px;
   }
   
-  #pauseButton {
-	right: 5%;
-  }
   
   .myCanvas {
 	position: absolute;
@@ -136,6 +148,8 @@
 	background-color: rgb(217, 217, 217);
 	color: #1f1f1f;
   }
+
+  //media queries
   
   @media (min-width: 360px) {
 	.Note {
@@ -202,6 +216,18 @@
 	.carEmoji {
 	  font-size: 40px;
 	}
+
+	.interfaceButton {
+		font-size: 14px;
+		width: 25px;
+		height: 25px;
+	  }
+	  
+	  #muteButton {
+		top: 5px;
+		left: 36px;
+	  }
+	  
   }
 
   @media (min-width: 768px) {
@@ -233,6 +259,17 @@
 	.carEmoji {
 	  font-size: 48px;
 	}
+
+	.interfaceButton {
+		font-size: 16px;
+		width: 29px;
+		height: 29px;
+	  }
+	  
+	  #muteButton {
+		top: 5px;
+		left: 37px;
+	  }
   }
 
   @media (min-width: 992px) {
@@ -263,6 +300,18 @@
 	  padding: 2px 12px;
 	  border: 2px solid var(--darkGray);
 	}
+
+	.interfaceButton {
+		font-size: 20px;
+		width: 37px;
+		height: 37px;
+		margin: 3px;
+	  }
+	  
+	  #muteButton {
+		top: 5px;
+		left: 48px;
+	  }
   }
 
   @media (min-width: 1200px) {
@@ -292,6 +341,18 @@
 	  font-size: 29px;
 	  padding: 5px 12px;
 	}
+
+	.interfaceButton {
+		font-size: 23px;
+		width: 40px;
+		height: 40px;
+		margin: 4px;
+	  }
+	  
+	  #muteButton {
+		top: 5px;
+		left: 51px;
+	  }
   }
 
   @media (min-width: 1400px) {
